@@ -20,6 +20,7 @@ from database.db_helper import (
 app = Flask(__name__,
             template_folder='../frontend/templates',
             static_folder='../frontend/static')
+app.config['APPLICATION_ROOT'] = '/admin'
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 ADMIN_EMAIL = 'mhd.hasan236@gmail.com'
