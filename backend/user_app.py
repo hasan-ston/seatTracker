@@ -211,15 +211,30 @@ def add_watch():
         course_id = get_or_create_course(subject, course_number, term)
 
         cursor.execute("""
-            SELECT id FROM course_watches
-            WHERE user_id = ? AND course_id = ? AND active = 1
+            SELECT id, active FROM course_watches
+            WHERE user_id = ? AND course_id = ?
         """, (user_id, course_id))
 
-        if cursor.fetchone():
-            flash('You are already watching this course', 'error')
-            cursor.close()
-            conn.close()
-            return redirect(url_for('add_watch'))
+        existing_watch = cursor.fetchone()
+
+        if existing_watch:
+            watch_id, is_active = existing_watch
+            if is_active:
+                flash('You are already watching this course', 'error')
+                cursor.close()
+                conn.close()
+                return redirect(url_for('add_watch'))
+            else:
+                cursor.execute("""
+                    UPDATE course_watches
+                    SET active = 1, notify_on_open = ?, status = 'closed', last_checked = NULL
+                    WHERE id = ?
+                """, (notify_on_open, watch_id))
+                conn.commit()
+                flash(f'Successfully re-added watch for {subject} {course_number}!', 'success')
+                cursor.close()
+                conn.close()
+                return redirect(url_for('dashboard'))
 
         try:
             watch_id = create_course_watch(user_id, course_id, notify_on_open)

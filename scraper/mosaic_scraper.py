@@ -63,20 +63,35 @@ def get_course_status(page):
     # Wait for results to load
     time.sleep(2)
     
-    # Find ALL status images first
-    all_status_images = working_frame.locator('img[alt="Open"], img[alt="Closed"], img[alt="Wait List"]').all()
-    
-    # Filter out the legend (first 3 images are typically the legend)
-    # The legend shows one of each: Open, Closed, Wait List
-    if len(all_status_images) <= 3:
-        print(f"   Only found {len(all_status_images)} status images - might be just the legend")
-        return {'status': 'not_found'}
-    
-    # Skip the first 3 images (the legend) and process the rest
-    section_status_images = all_status_images[3:]
-    count = len(section_status_images)
-    
-    print(f"   Found {count} section(s) (excluded 3 legend icons)")
+    # More specific selector: look for status images within table rows
+    # This excludes the legend at the top
+    status_locator = working_frame.locator('table tr img[alt="Open"], table tr img[alt="Closed"], table tr img[alt="Wait List"]')
+    count = status_locator.count()
+
+    if count == 0:
+        page_text = working_frame.locator('body').inner_text()
+
+        if 'No classes were found' in page_text or 'no results' in page_text.lower():
+            print("   Page says: 'No classes were found'")
+            return {'status': 'not_found'}
+
+        if 'INNOVATE' in page_text or 'class section' in page_text.lower():
+            print("   Found course text, waiting longer...")
+            time.sleep(5)
+
+            count = status_locator.count()
+            print(f"   Retry: Found {count} status indicator(s)")
+
+            if count == 0:
+                print("   Still no status found")
+                print(f"\n   Page content preview:\n{page_text[:500]}...\n")
+                return {'status': 'not_found'}
+        else:
+            print("   Not on results page")
+            return {'status': 'not_found'}
+
+    # Get all status indicators from actual course sections
+    print(f"   Found {count} section(s)")
     
     status_counts = {
         'open': 0,
@@ -91,15 +106,14 @@ def get_course_status(page):
     }
     
     # Count each status type
-    for img in section_status_images:
-        alt_text = img.get_attribute('alt')
+    for i in range(count):
+        alt_text = status_locator.nth(i).get_attribute('alt')
         status = status_map.get(alt_text, 'unknown')
         if status in status_counts:
             status_counts[status] += 1
     
     print(f"   Status breakdown: {status_counts['open']} open, {status_counts['closed']} closed, {status_counts['waitlist']} waitlist")
     
-    # Determine overall status
     if status_counts['open'] > 0:
         overall_status = 'open'
     elif status_counts['waitlist'] > 0:
@@ -112,6 +126,7 @@ def get_course_status(page):
         'details': status_counts,
         'total_sections': count
     }
+
 
 def check_course_status(subject, course_number, term, browser=None, page=None):
     """
