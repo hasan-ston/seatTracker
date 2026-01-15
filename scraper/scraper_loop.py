@@ -55,6 +55,7 @@ def scrape_all_courses():
     print(f"Starting scraper run at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 70)
 
+    # Get watches - connection is opened and closed inside this function
     watches = get_active_course_watches()
 
     if not watches:
@@ -88,6 +89,7 @@ def scrape_all_courses():
 
         for watch in watches:
             try:
+                # Check course status (no database connection here)
                 result = check_course_status(
                     subject=watch['subject'],
                     course_number=watch['course_number'],
@@ -99,11 +101,13 @@ def scrape_all_courses():
                 new_status = result['status']
                 old_status = watch['current_status']
 
+                # Update database - connection is opened and closed inside this function
+                # This means the lock is only held for a brief moment
                 changed = update_course_watch_status(watch['watch_id'], new_status)
 
                 if changed:
                     status_changed += 1
-                    print(f"Status changed: {old_status} -> {new_status}")
+                    print(f"   Status changed: {old_status} -> {new_status}")
 
                     if new_status == 'open' and watch['notify_on_open']:
                         send_notification(
@@ -112,6 +116,7 @@ def scrape_all_courses():
                             watch,
                             new_status
                         )
+                        # Create notification record - another brief database operation
                         create_notification(
                             watch['user_id'],
                             watch['watch_id'],
@@ -120,11 +125,12 @@ def scrape_all_courses():
 
                 checked += 1
 
+                # Sleep between courses to avoid hammering the server
                 time.sleep(2)
 
             except Exception as e:
                 errors += 1
-                print(f"Error checking {watch['subject']} {watch['course_number']}: {e}")
+                print(f"   Error checking {watch['subject']} {watch['course_number']}: {e}")
                 continue
 
         print("\nClosing browser...")
