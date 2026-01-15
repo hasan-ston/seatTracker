@@ -165,7 +165,7 @@ def run_continuous(interval_minutes=5):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--continuous":
-        interval = int(sys.argv[2]) if len(sys.argv) > 2 else 5
+        interval = float(sys.argv[2]) if len(sys.argv) > 2 else 5
         run_continuous(interval)
     else:
         scrape_all_courses()
