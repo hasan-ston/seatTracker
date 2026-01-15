@@ -110,7 +110,10 @@ def check_course_status(subject, course_number, term, browser=None, page=None):
     close_browser = False
     if browser is None:
         p = sync_playwright().start()
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(
+            headless=True,
+            args=['--no-sandbox', '--disable-setuid-sandbox']
+        )
         page = browser.new_page()
         login_to_mosaic(page)
         close_browser = True
