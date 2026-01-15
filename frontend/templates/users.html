@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Users - McMaster Seat Tracker{% endblock %}
+
+{% block content %}
+<h2>Registered Users</h2>
+
+{% if users %}
+    <table class="users-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Active Watches</th>
+                <th>Joined</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone or '-' }}</td>
+                <td>{{ user.watch_count }}</td>
+                <td>{{ user.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="empty-state">No users registered yet.</p>
+{% endif %}
+
+{% endblock %}

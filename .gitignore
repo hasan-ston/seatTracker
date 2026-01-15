@@ -1,0 +1,62 @@
+# Environment
+.env
+venv/
+.venv/
+env/
+ENV/
+
+# Database
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Flask
+instance/
+.webassets-cache
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.pid
+
+# Playwright
+.playwright/
+
+# Backups
+*.backup
+*.bak
+
+# Keys
+*.pem
+*.ppk
+*.key
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+deployment/

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Active Watches - McMaster Seat Tracker (Admin){% endblock %}
+
+{% block extra_head %}
+<meta http-equiv="refresh" content="30">
+{% endblock %}
+
+{% block content %}
+<div class="header-section">
+    <h2>Active Course Watches</h2>
+    <a href="{{ url_for('add_watch') }}" class="btn btn-primary">+ Add New Watch</a>
+</div>
+
+{% if watches %}
+    <div class="watches-grid">
+        {% for watch in watches %}
+        <div class="watch-card status-{{ watch.current_status }}">
+            <div class="watch-header">
+                <h3>{{ watch.subject }} {{ watch.course_number }}</h3>
+                <span class="status-badge status-{{ watch.current_status }}">
+                    {{ watch.current_status|upper }}
+                </span>
+            </div>
+
+            <div class="watch-details">
+                <p><strong>Term:</strong> {{ watch.term }}</p>
+                {% if watch.course_name %}
+                    <p><strong>Course:</strong> {{ watch.course_name }}</p>
+                {% endif %}
+                <p><strong>User:</strong> {{ watch.email }}</p>
+                {% if watch.phone %}
+                    <p><strong>Phone:</strong> {{ watch.phone }}</p>
+                {% endif %}
+                <p><strong>Notify:</strong> {{ 'Yes' if watch.notify_on_open else 'No' }}</p>
+                {% if watch.last_checked %}
+                    <p class="last-checked"><strong>Last Checked:</strong> {{ watch.last_checked }}</p>
+                {% endif %}
+            </div>
+
+            <div class="watch-actions">
+                <button onclick="deleteWatch({{ watch.watch_id }})" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <h3>No active watches</h3>
+        <p>Get started by adding your first course watch!</p>
+        <a href="{{ url_for('add_watch') }}" class="btn btn-primary">Add Watch</a>
+    </div>
+{% endif %}
+
+<script>
+function deleteWatch(watchId) {
+    if (confirm('Are you sure you want to delete this watch?')) {
+        fetch(`/api/watch/${watchId}/delete`, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error deleting watch');
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Subjects - McMaster Seat Tracker{% endblock %}
+
+{% block content %}
+<h2>Available Subjects</h2>
+
+<form method="GET" action="{{ url_for('subjects') }}" class="search-form">
+    <input type="text" name="search" placeholder="Search subjects..."
+           value="{{ search }}" class="search-input">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% if subjects %}
+    <div class="subjects-list">
+        {% for subject in subjects %}
+        <div class="subject-item">
+            <span class="subject-code">{{ subject.code }}</span>
+            <span class="subject-name">{{ subject.name }}</span>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="empty-state">No subjects found.</p>
+{% endif %}
+
+{% endblock %}

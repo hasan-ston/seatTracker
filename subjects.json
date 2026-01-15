@@ -1,0 +1,1687 @@
+[
+  {
+    "code": "ABC",
+    "name": "Accelerated Business Courses",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "ABLD",
+    "name": "Africa and Black Diaspora Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "ACC",
+    "name": "Accounting",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "ACCOUNT",
+    "name": "Account",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "ACR",
+    "name": "Applied Clinical Research",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "ACT",
+    "name": "Acceptance & Commitment Therapy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "ACW",
+    "name": "Academic Writing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "ADD",
+    "name": "Addictions",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "ADDICTS",
+    "name": "Addict.S",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "ADMGM",
+    "name": "Ad & Mgm",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "ADMIN",
+    "name": "Admin",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "AMP",
+    "name": "Advanced Management Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "ANTHROP",
+    "name": "Anthropology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "ARABIC",
+    "name": "Arabic",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "ART",
+    "name": "Art",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "ARTHIST",
+    "name": "Art History",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "ARTSSCI",
+    "name": "Arts & Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "ASTRON",
+    "name": "Astronomy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "AUTOTECH",
+    "name": "Automotive and Vehicle Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$18"
+  },
+  {
+    "code": "AWS",
+    "name": "AWS Academy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$19"
+  },
+  {
+    "code": "BAN",
+    "name": "Business Analysis",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "BAP",
+    "name": "Business Analysis Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "BDA",
+    "name": "Big Data Analytics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "BDV",
+    "name": "Back-End Development",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "BEHANLYS",
+    "name": "Behavioural Analysis",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "BEHRHI",
+    "name": "Behrh  I",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "BIOCHEM",
+    "name": "Biochemistry",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "BIOENCO",
+    "name": "Bioengineering Co-Op",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "BIOENG",
+    "name": "Bioengineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "BIOLOGY",
+    "name": "Biology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "BIOMED",
+    "name": "Biomedical",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "BIOMEDDC",
+    "name": "Biomedical Discovery and Commercialization",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "BIOMEDIN",
+    "name": "Biomedical Innovation",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "BIOPHYS",
+    "name": "Biophysics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "BIOSAFE",
+    "name": "Biosafety",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "BIOTECH",
+    "name": "Biotechnology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "BMECOOP",
+    "name": "IBEHS Biomedical Engineering Coop",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "BRINJ",
+    "name": "Acquired Brain Injury",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "BUS",
+    "name": "Business Administration",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$18"
+  },
+  {
+    "code": "BUSADMIN",
+    "name": "Business Administration",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$19"
+  },
+  {
+    "code": "BUSAI",
+    "name": "Business AI",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$20"
+  },
+  {
+    "code": "BUSCOM",
+    "name": "Bus&Com",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$21"
+  },
+  {
+    "code": "BUSINESS",
+    "name": "Business",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$22"
+  },
+  {
+    "code": "CAS",
+    "name": "Computing and Software",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "CAYUGA",
+    "name": "Cayuga",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "CBS",
+    "name": "Clinical Behavior Sciences",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "CBT",
+    "name": "Cbt",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "CBTII",
+    "name": "Cbt   II",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "CCD",
+    "name": "Creative Critical Design Thinking",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "CCE",
+    "name": "Centre for Continueing Education",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "CES",
+    "name": "Computational Engineering and Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "CHALLENG",
+    "name": "Critical Challenges",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "CHEM",
+    "name": "Chemistry",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "CHEMBIO",
+    "name": "Chemical Biology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "CHEMBME",
+    "name": "Integrated Chemical & Biomedical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "CHEMENG",
+    "name": "Chemical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "CHHIST",
+    "name": "Christian History",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "CHILDLS",
+    "name": "Child Life and Pediatric Psychosocial Care",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "CHINESE",
+    "name": "Chinese",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "CHR_PAIN",
+    "name": "Chronic Pain",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "CHS",
+    "name": "Clinical Health Sciences",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "CHTHEOL",
+    "name": "Christian Theology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$18"
+  },
+  {
+    "code": "CIT",
+    "name": "Canadian Indirect Taxes",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$19"
+  },
+  {
+    "code": "CIVBME",
+    "name": "Integrated Civil & Biomedical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$20"
+  },
+  {
+    "code": "CIVDEM",
+    "name": "Civic Vitality, Democracy and Electoral Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$21"
+  },
+  {
+    "code": "CIVENG",
+    "name": "Civil Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$22"
+  },
+  {
+    "code": "CIVTECH",
+    "name": "Civil Engineering Infrastructure Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$23"
+  },
+  {
+    "code": "CLASSICS",
+    "name": "Classics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$24"
+  },
+  {
+    "code": "CLM",
+    "name": "Certificate in Leadership & Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$25"
+  },
+  {
+    "code": "CLPPC",
+    "name": "Child Life and Pediatric Psychosocial Care",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$26"
+  },
+  {
+    "code": "CL_SUPRV",
+    "name": "Clinical Supervison",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$27"
+  },
+  {
+    "code": "CMST",
+    "name": "Communication Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$28"
+  },
+  {
+    "code": "CMSTMM",
+    "name": "Communication Studies and Multimedia",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$29"
+  },
+  {
+    "code": "CMT",
+    "name": "Case Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$30"
+  },
+  {
+    "code": "CMTYENGA",
+    "name": "Community Engagement",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$31"
+  },
+  {
+    "code": "CNH",
+    "name": "Canadian Housing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$32"
+  },
+  {
+    "code": "CNMCS",
+    "name": "Communication, New Media and Cultural Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$33"
+  },
+  {
+    "code": "COGSCIL",
+    "name": "Cognitive Science Of Language",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$34"
+  },
+  {
+    "code": "COLLAB",
+    "name": "Collaborative",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$35"
+  },
+  {
+    "code": "COMMERCE",
+    "name": "Commerce",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$36"
+  },
+  {
+    "code": "COMMGMT",
+    "name": "Communications Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$37"
+  },
+  {
+    "code": "COMPENG",
+    "name": "Computer Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$38"
+  },
+  {
+    "code": "COMPSCI",
+    "name": "Computer Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$39"
+  },
+  {
+    "code": "COMPTECH",
+    "name": "Computing and Information Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$40"
+  },
+  {
+    "code": "COMSFWR",
+    "name": "Computer Software and Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$41"
+  },
+  {
+    "code": "CONSENT",
+    "name": "CONSENT",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$42"
+  },
+  {
+    "code": "CONTED",
+    "name": "CONTED",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$43"
+  },
+  {
+    "code": "COOP",
+    "name": "Co-operative",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$44"
+  },
+  {
+    "code": "COT",
+    "name": "Computer Training",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$45"
+  },
+  {
+    "code": "CPM",
+    "name": "Canadian Payroll Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$46"
+  },
+  {
+    "code": "CRA",
+    "name": "CCRS",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$47"
+  },
+  {
+    "code": "CRP",
+    "name": "Corporate",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$48"
+  },
+  {
+    "code": "CSCT",
+    "name": "Cultural Studies and Critical Theory",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$49"
+  },
+  {
+    "code": "CSE",
+    "name": "Computational Science and Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$50"
+  },
+  {
+    "code": "CULTRST",
+    "name": "Cultural Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$51"
+  },
+  {
+    "code": "DAT",
+    "name": "Data Analytics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "DATASCI",
+    "name": "Data Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "DM",
+    "name": "Design Manufacturing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "DMK",
+    "name": "Digital Marketing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "DTG",
+    "name": "Data Governance",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "EARTHSC",
+    "name": "Earth Sciences",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "ECE",
+    "name": "Electrical and Computer Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "ECON",
+    "name": "Economics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "ECS",
+    "name": "English and Cultural Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "EDUCATN",
+    "name": "Educatn",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "EHEALTH",
+    "name": "Ehealth",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "ELECBME",
+    "name": "Integrated Electrical & Biomedical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "ELECENG",
+    "name": "Electrical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "ENGCOOP",
+    "name": "Engineering Co-Op",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "ENGINEER",
+    "name": "Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "ENGLISH",
+    "name": "English",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "ENGNMGT",
+    "name": "Engineering Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "ENGPHYS",
+    "name": "Engineering Physics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "ENGSOCTY",
+    "name": "Engineering & Society",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "ENGTECH",
+    "name": "Engineering Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "ENRTECH",
+    "name": "Energy Engineering Technologies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "ENTREP",
+    "name": "Entrepreneurship",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "ENVIRSC",
+    "name": "Environmental Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "ENVSOCTY",
+    "name": "Environment & Society",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$18"
+  },
+  {
+    "code": "EPHYSBME",
+    "name": "Integrated Engineering Physics & Biomedical Engine",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$19"
+  },
+  {
+    "code": "EPN",
+    "name": "Entrepreneurship",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$20"
+  },
+  {
+    "code": "ESS",
+    "name": "Essentials",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$21"
+  },
+  {
+    "code": "ETHICS",
+    "name": "Ethics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$22"
+  },
+  {
+    "code": "EXCHANGE",
+    "name": "Exchange",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$23"
+  },
+  {
+    "code": "EXPLORE",
+    "name": "EXPLORE Interdisciplinary Experiences",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$24"
+  },
+  {
+    "code": "FARSI",
+    "name": "Farsi Language",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "FDV",
+    "name": "Front-End Development",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "FER",
+    "name": "Family Engagement in Research",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "FINANCE",
+    "name": "Finance",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "FMIIIA",
+    "name": "Fm I&IIA",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "FRENCH",
+    "name": "French",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "GENDRST",
+    "name": "Gender Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "GENTECH",
+    "name": "General Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "GEOG",
+    "name": "Geography",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "GERMAN",
+    "name": "German",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "GERONTOL",
+    "name": "Gerontology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "GKROMST",
+    "name": "Greek and Roman Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "GLF",
+    "name": "Business of Golf and Resort Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "GLOBALST",
+    "name": "Globalization Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "GLOBALZN",
+    "name": "Globalization Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "GLOBHTH",
+    "name": "Global Health",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "GRAD",
+    "name": "Graduate Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "GREEK",
+    "name": "Greek",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "GRPI",
+    "name": "Grp    I",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "GTMNTL",
+    "name": "Gt Mntl Hl",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "HDA",
+    "name": "Health Data Analytics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "HEALTHST",
+    "name": "Health Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "HEBREW",
+    "name": "Hebrew",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "HESECOOP",
+    "name": "IBEHS Health, Engineering Science & Entreprneurshp",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "HIF",
+    "name": "Health Info Fundamentals",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "HISTORY",
+    "name": "History",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "HLTHAGE",
+    "name": "Health, Aging and Society",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "HLTHMGT",
+    "name": "Health Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "HLTHPOL",
+    "name": "Health Policy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "HPEP",
+    "name": "Health Professional Entrance Preparation Cert.",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "HRM",
+    "name": "Human Resources",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "HSEDUC",
+    "name": "Health Science Education",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "HTH",
+    "name": "Health Information Management and Systems",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "HTHINFO",
+    "name": "Health Information Mgmt/Informatics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "HTHRSM",
+    "name": "Health Research Methodology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "HTHSCI",
+    "name": "Health Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "HUMAN",
+    "name": "Humanities",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "HUMBEHV",
+    "name": "Human Behaviour",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "HUMREL",
+    "name": "Hum Rel",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$18"
+  },
+  {
+    "code": "HUMSERV",
+    "name": "Hum Serv",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$19"
+  },
+  {
+    "code": "HVT",
+    "name": "Health Ventures",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$20"
+  },
+  {
+    "code": "HWC",
+    "name": "Health and Wellness Coaching",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$21"
+  },
+  {
+    "code": "IARTS",
+    "name": "Integrated Arts",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "IBEHS",
+    "name": "Integrated Biomedical Engineerng & Health Sciences",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "IBH",
+    "name": "Integrated Business and Humanities",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "ICL",
+    "name": "Intercultural Competency",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "INDI",
+    "name": "Ind    I",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "INDIGST",
+    "name": "Indigenous Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "INNOVATE",
+    "name": "Innovation",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "INSPIRE",
+    "name": "INSPIRE- Intersession",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "INSTCO",
+    "name": "International Studies Co-Op",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "INSTUDI",
+    "name": "International Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "INTENG",
+    "name": "International Engagement",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "INTRS",
+    "name": "Medical Residents and Interns",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "INUKTUT",
+    "name": "Inuktitut",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "IPT",
+    "name": "IPT",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "IRH",
+    "name": "Integrated Rehabilitation and Humanities Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "ISCI",
+    "name": "Integrated Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "ITALIAN",
+    "name": "Italian",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "IYIP",
+    "name": "IYIP",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "JAPANESE",
+    "name": "Japanese",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "KINESIOL",
+    "name": "Kinesiology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "Select",
+    "name": "KOREAN",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "LABRST",
+    "name": "Labour Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "LATAM",
+    "name": "Latin American and Latinx Studies at McMaster",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "LATIN",
+    "name": "Latin",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "LCE",
+    "name": "Leadership in Community Engagement",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "LEVLI",
+    "name": "Levl   I",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "LIFESCI",
+    "name": "Life Sciences",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "LINGUIST",
+    "name": "Linguistics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "LSC",
+    "name": "LifTING & Sepsis Canada",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "LSS",
+    "name": "Lean Six Sigma",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "MANAGMNT",
+    "name": "Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "MANTECH",
+    "name": "Manufacturing Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "MANUFACT",
+    "name": "Manufacturing Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "MARKETNG",
+    "name": "Marketing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "MATH",
+    "name": "Mathematics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "MATLS",
+    "name": "Materials",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "MATLSBME",
+    "name": "Integrated Materials & Biomedical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "MCE",
+    "name": "McMaster Continuing Education",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "MECHBME",
+    "name": "Integrated Mechanical & Biomedical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "MECHENG",
+    "name": "Mechanical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "MECHTRON",
+    "name": "Mechatronics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "MED",
+    "name": "Medicine",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "MECHTRON",
+    "name": "Mechatronics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "MED",
+    "name": "Medicine",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "MEDCEP",
+    "name": "Medical Clinician Educator Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "MEDIAART",
+    "name": "Media Arts",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "MEDLABSC",
+    "name": "Medical Laboratory Sciences post-baccalaureate Dip",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "MEDPHYS",
+    "name": "Medical Physics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "MEDRADSC",
+    "name": "Medical Radiation Sciences",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "MEDRES",
+    "name": "MEDICAL RESIDENCE",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "MEDSCI",
+    "name": "Med. Sci",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$18"
+  },
+  {
+    "code": "MELD",
+    "name": "McMaster English Language Development",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$19"
+  },
+  {
+    "code": "MERGE",
+    "name": "McMaster English Readiness for Graduate Excellence",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$20"
+  },
+  {
+    "code": "MET",
+    "name": "Metallurgy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$21"
+  },
+  {
+    "code": "MFM",
+    "name": "Financial Math",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$22"
+  },
+  {
+    "code": "MGT",
+    "name": "Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$23"
+  },
+  {
+    "code": "MGTCOOP",
+    "name": "Management Co-Op",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$24"
+  },
+  {
+    "code": "MIDWIF",
+    "name": "Midwifery",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$25"
+  },
+  {
+    "code": "MINFORM",
+    "name": "Ministry Formation",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$26"
+  },
+  {
+    "code": "MINST",
+    "name": "Ministry Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$27"
+  },
+  {
+    "code": "MKL",
+    "name": "Knowledge Leaders Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$28"
+  },
+  {
+    "code": "MKT",
+    "name": "Marketing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$29"
+  },
+  {
+    "code": "MMEDIA",
+    "name": "Multimedia",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$30"
+  },
+  {
+    "code": "MMGMT",
+    "name": "Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$31"
+  },
+  {
+    "code": "MND",
+    "name": "Mindfulness",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$32"
+  },
+  {
+    "code": "MOHAWK",
+    "name": "Mohawk",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$33"
+  },
+  {
+    "code": "MOLBIOL",
+    "name": "Molecular Biology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$34"
+  },
+  {
+    "code": "MOTIV_IN",
+    "name": "Motivational Interviewing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$35"
+  },
+  {
+    "code": "MPL",
+    "name": "Personal Leaders Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$36"
+  },
+  {
+    "code": "MSL",
+    "name": "Strategic Leaders Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$37"
+  },
+  {
+    "code": "MUS",
+    "name": "Music Care by Room 217",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$38"
+  },
+  {
+    "code": "MUSIC",
+    "name": "Music",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$39"
+  },
+  {
+    "code": "MUSICCOG",
+    "name": "Music Cognition",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$40"
+  },
+  {
+    "code": "MVP",
+    "name": "Managing with Vision & Proficiency Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$41"
+  },
+  {
+    "code": "NEUROSCI",
+    "name": "Neuroscience",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "NEWTEST",
+    "name": "New Testament",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "NEXUS",
+    "name": "Global Nexus",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "NHW",
+    "name": "Nutrition, Health and Wellness",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "NMOP",
+    "name": "New Manager Orientation Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "NRS",
+    "name": "Nursing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "NUCENG",
+    "name": "Nuclear Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "NUCLST",
+    "name": "Nuclear Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "NURSING",
+    "name": "Nursing",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "OCCUPTH",
+    "name": "Occup.Th",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "OGW",
+    "name": "Ogwehgoweh",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "OJIBWE",
+    "name": "Ojibwe",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "OLDTEST",
+    "name": "Old Testament",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "ORGI",
+    "name": "Org    I",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "ORGII",
+    "name": "Org   II",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "ORIG",
+    "name": "Origins",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "ORIGINS",
+    "name": "Origins",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "OSI",
+    "name": "Open Source Intelligence",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "OTEPP",
+    "name": "Occupational Therapy Exam Preparation Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "PAY",
+    "name": "Canadian Payroll",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "PCW",
+    "name": "Professional Communication: Canadian Workplace",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "PDPT",
+    "name": "Psychodynamic Psychotherapy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "PEACEST",
+    "name": "Peace Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "PEACJUST",
+    "name": "Global Peace and Social Justice",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "PERSMGT",
+    "name": "Pers.Mgt",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "PHARMAC",
+    "name": "Pharmacology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "PHILOS",
+    "name": "Philosophy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "PHYASST",
+    "name": "Physician Assistant",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "PHYSICS",
+    "name": "Physics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "PHYSIOTH",
+    "name": "Physiotherapy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "PMP",
+    "name": "Project Management Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "PNB",
+    "name": "Psychology, Neuroscience & Behaviour",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "POLISH",
+    "name": "Polish",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "POLSCI",
+    "name": "Political Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "PROCTECH",
+    "name": "Process Automation Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "PRV",
+    "name": "Privacy Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "PSYCH",
+    "name": "Psychology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "PSYCHOTH",
+    "name": "Psychotherapy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$18"
+  },
+  {
+    "code": "PTSD",
+    "name": "Post-Traumatic Stress Disorder",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$19"
+  },
+  {
+    "code": "PUB",
+    "name": "Public Relations",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$20"
+  },
+  {
+    "code": "PUBHLTH",
+    "name": "Public Health",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$21"
+  },
+  {
+    "code": "PUBPOL",
+    "name": "Public Policy",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$22"
+  },
+  {
+    "code": "PUBREL",
+    "name": "Public Relations",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$23"
+  },
+  {
+    "code": "RCM",
+    "name": "Retirement Community Mgmt",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "RECONCIL",
+    "name": "Retirement Community Mgmt",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "REHAB",
+    "name": "Reconciliation",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "RELIGST",
+    "name": "Religious Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "RSK",
+    "name": "Risk Management",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "RUSSIAN",
+    "name": "Russian",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "SAC",
+    "name": "Associateship in Canadian Surety Bonding",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "SANSKRIT",
+    "name": "Sanskrit",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "SCAR",
+    "name": "Society, Culture, and Religion",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "SCC",
+    "name": "Science of Cannabis",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "SCICOMM",
+    "name": "Science Communication",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "SCIENCE",
+    "name": "Science",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "SEP",
+    "name": "School for Engineering Practice",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "SFGNTECH",
+    "name": "Software Engineering General Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  },
+  {
+    "code": "SFWRBME",
+    "name": "Integrated Software & Biomedical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$8"
+  },
+  {
+    "code": "SFWRENG",
+    "name": "Software Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$9"
+  },
+  {
+    "code": "SFWRTECH",
+    "name": "Software Engineering Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$10"
+  },
+  {
+    "code": "SGS",
+    "name": "School Of Graduate Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$11"
+  },
+  {
+    "code": "SHW",
+    "name": "Sleep for Health and Wellness",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$12"
+  },
+  {
+    "code": "SKL",
+    "name": "CCE Skill Development",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$13"
+  },
+  {
+    "code": "SLP",
+    "name": "Speech Language Pathology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$14"
+  },
+  {
+    "code": "SMRTTECH",
+    "name": "Smart Engineering Technology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$15"
+  },
+  {
+    "code": "SOCCOOP",
+    "name": "Society Co-Op",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$16"
+  },
+  {
+    "code": "SOCIETY",
+    "name": "Society",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$17"
+  },
+  {
+    "code": "SOCIOL",
+    "name": "Sociology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$18"
+  },
+  {
+    "code": "SOCPSY",
+    "name": "Social Psychology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$19"
+  },
+  {
+    "code": "SOCSCI",
+    "name": "Social Sciences",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$20"
+  },
+  {
+    "code": "SOCWORK",
+    "name": "Social Work",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$21"
+  },
+  {
+    "code": "SPANISH",
+    "name": "Spanish",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$22"
+  },
+  {
+    "code": "SPEECH",
+    "name": "Speech Language Pathology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$23"
+  },
+  {
+    "code": "STATS",
+    "name": "Statistics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$24"
+  },
+  {
+    "code": "STEP",
+    "name": "Summer Transition English Prep",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$25"
+  },
+  {
+    "code": "SUS",
+    "name": "Sustainability",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$26"
+  },
+  {
+    "code": "SUSTAIN",
+    "name": "Sustainability",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$27"
+  },
+  {
+    "code": "TEAMS",
+    "name": "Working Effectively in Teams",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "THEOLOGY",
+    "name": "Theology",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "THTRFLM",
+    "name": "Theatre & Film",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "TRONBME",
+    "name": "Integrated Mechatronics & Biomedical Engineering",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "UN",
+    "name": "University Network",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "UNIFOR",
+    "name": "Unifor-McMaster Labour Studies Program",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "UNKNOWN",
+    "name": "Unknown",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "UNSPECFD",
+    "name": "UNSPECFD",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "UXI",
+    "name": "UX & UI Design",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "VAW",
+    "name": "Responding to Violence Against Women",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "VSR",
+    "name": "Visiting Undergraduate Research",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "WAP",
+    "name": "Web Analytics",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$0"
+  },
+  {
+    "code": "WEB",
+    "name": "Web Design",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$1"
+  },
+  {
+    "code": "WHMIS",
+    "name": "WHMIS",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$2"
+  },
+  {
+    "code": "WILSON",
+    "name": "Wilson College",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$3"
+  },
+  {
+    "code": "WOBORDER",
+    "name": "Without Borders",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$4"
+  },
+  {
+    "code": "WOMENST",
+    "name": "Women's Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$5"
+  },
+  {
+    "code": "WORKLABR",
+    "name": "Work and Labour Studies",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$6"
+  },
+  {
+    "code": "WORKSOC",
+    "name": "Work and Society",
+    "action": "SSR_CLSRCH_WRK2_SSR_PB_SELECT_SUBJ$7"
+  }
+]

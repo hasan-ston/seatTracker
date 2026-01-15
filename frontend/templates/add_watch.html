@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Add Watch - McMaster Seat Tracker{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Add New Course Watch</h2>
+
+    <form method="POST" action="{{ url_for('add_watch') }}" class="watch-form">
+        <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required
+                   placeholder="your.email@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number (optional)</label>
+            <input type="tel" id="phone" name="phone"
+                   placeholder="123-456-7890">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="subject">Subject Code *</label>
+                <input type="text" id="subject" name="subject" required
+                       placeholder="COMPSCI" style="text-transform: uppercase;">
+                <small>Example: COMPSCI, INSPIRE, MATH</small>
+            </div>
+
+            <div class="form-group">
+                <label for="course_number">Course Number *</label>
+                <input type="text" id="course_number" name="course_number" required
+                       placeholder="1MD3" style="text-transform: uppercase;">
+                <small>Example: 1MD3, 1PL3, 2FA3</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="term">Term *</label>
+            <select id="term" name="term" required>
+                <option value="">Select Term</option>
+                <option value="2026 Winter">2026 Winter</option>
+                <option value="2026 Spring">2026 Spring</option>
+                <option value="2026 Summer">2026 Summer</option>
+                <option value="2026 Fall">2026 Fall</option>
+            </select>
+        </div>
+
+        <div class="form-group checkbox-group">
+            <label>
+                <input type="checkbox" name="notify_on_open" checked>
+                Notify me when course opens
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Add Watch</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+
+    <div class="help-section">
+        <h3>How to find course information:</h3>
+        <ol>
+            <li>Go to <a href="https://csprd.mcmaster.ca/psc/prcsprd/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.CLASS_SEARCH.GBL" target="_blank">Mosaic Class Search</a></li>
+            <li>Select the term</li>
+            <li>Select a subject to see available courses</li>
+            <li>Note the course code (e.g., COMPSCI 1MD3)</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}

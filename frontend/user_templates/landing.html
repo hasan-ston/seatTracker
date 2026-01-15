@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - McMaster Seat Tracker{% endblock %}
+
+{% block content %}
+<div class="landing-page">
+    <div class="hero-section">
+        <h1>Never Miss a Course Opening Again!</h1>
+        <p class="hero-subtitle">Get instant email notifications when your waitlisted courses become available</p>
+
+        <div class="cta-buttons">
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Get Started Free</a>
+            <a href="{{ url_for('login') }}" class="btn btn-secondary btn-large">Login</a>
+        </div>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>Track Courses</h3>
+            <p>Monitor up to 3 courses per term and get real-time updates on their availability</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Email Alerts</h3>
+            <p>Receive instant email notifications the moment a seat becomes available</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Fast & Reliable</h3>
+            <p>Automated checks every 5 minutes so you can register before seats fill up</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>McMaster Integrated</h3>
+            <p>Direct integration with Mosaic for accurate, up-to-date course information</p>
+        </div>
+    </div>
+
+    <div class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h4>Create Account</h4>
+                <p>Sign up with your email in seconds</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h4>Add Courses</h4>
+                <p>Enter the courses you want to track</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h4>Get Notified</h4>
+                <p>Receive alerts when seats open up</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h4>Register Fast</h4>
+                <p>Beat the rush and secure your spot</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-bottom">
+        <h2>Ready to secure your courses?</h2>
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Sign Up Now</a>
+    </div>
+</div>
+
+<style>
+.landing-page {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    color: var(--mcmaster-maroon);
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray-700);
+    margin-bottom: 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.feature-card h3 {
+    color: var(--mcmaster-maroon);
+    margin-bottom: 0.5rem;
+}
+
+.how-it-works {
+    background: white;
+    padding: 3rem;
+    border-radius: 8px;
+    margin: 4rem 0;
+}
+
+.how-it-works h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.step {
+    text-align: center;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--mcmaster-maroon);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+}
+
+.step h4 {
+    color: var(--mcmaster-maroon);
+    margin-bottom: 0.5rem;
+}
+
+.cta-bottom {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.cta-bottom h2 {
+    margin-bottom: 2rem;
+}
+</style>
+{% endblock %}

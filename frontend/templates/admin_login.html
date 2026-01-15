@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - McMaster Seat Tracker{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Admin Login</h2>
+        <p class="auth-subtitle">Access admin panel</p>
+
+        <form method="POST" action="{{ url_for('admin_login') }}" class="auth-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+    </div>
+</div>
+
+<style>
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 2rem 0;
+}
+
+.auth-box {
+    background: white;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    max-width: 450px;
+    width: 100%;
+}
+
+.auth-box h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--gray-700);
+    margin-bottom: 2rem;
+}
+
+.auth-form {
+    margin-top: 2rem;
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 1rem;
+}
+</style>
+{% endblock %}

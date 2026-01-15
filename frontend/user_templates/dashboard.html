@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - McMaster Seat Tracker{% endblock %}
+
+{% block extra_head %}
+<meta http-equiv="refresh" content="30">
+{% endblock %}
+
+{% block content %}
+<div class="header-section">
+    <div>
+        <h2>My Course Watches</h2>
+        <p class="subtitle">Watching {{ watch_count }} of {{ max_watches }} courses | Page auto-refreshes every 30s</p>
+    </div>
+    {% if can_add_more %}
+        <a href="{{ url_for('add_watch') }}" class="btn btn-primary">+ Add Watch</a>
+    {% else %}
+        <span class="limit-reached">Limit Reached ({{ max_watches }}/{{ max_watches }})</span>
+    {% endif %}
+</div>
+
+{% if watches %}
+    <div class="watches-grid">
+        {% for watch in watches %}
+        <div class="watch-card status-{{ watch.status }}">
+            <div class="watch-header">
+                <h3>{{ watch.subject }} {{ watch.course_number }}</h3>
+                <span class="status-badge status-{{ watch.status }}">
+                    {{ watch.status|upper }}
+                </span>
+            </div>
+
+            <div class="watch-details">
+                <p><strong>Term:</strong> {{ watch.term }}</p>
+                {% if watch.course_name %}
+                    <p><strong>Name:</strong> {{ watch.course_name }}</p>
+                {% endif %}
+                <p><strong>Notifications:</strong> {{ 'Enabled' if watch.notify_on_open else 'Disabled' }}</p>
+                {% if watch.last_checked %}
+                    <p class="last-checked"><strong>Last Checked:</strong> {{ watch.last_checked }}</p>
+                {% else %}
+                    <p class="last-checked"><strong>Status:</strong> Pending first check</p>
+                {% endif %}
+                <p class="added-at"><strong>Added:</strong> {{ watch.created_at }}</p>
+            </div>
+
+            <div class="watch-actions">
+                <button onclick="deleteWatch({{ watch.watch_id }})" class="btn btn-danger btn-sm">Delete</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <h3>No courses tracked yet</h3>
+        <p>Start tracking courses to get notified when they become available</p>
+        <a href="{{ url_for('add_watch') }}" class="btn btn-primary">Add Your First Watch</a>
+    </div>
+{% endif %}
+
+<div class="info-box">
+    <h4>Tips:</h4>
+    <ul>
+        <li>This page auto-refreshes every 30 seconds to show latest status</li>
+        <li>You'll receive an email when a course opens</li>
+        <li>The scraper checks courses every 5 minutes</li>
+        <li>You can track up to {{ max_watches }} courses at a time</li>
+    </ul>
+</div>
+
+<script>
+function deleteWatch(watchId) {
+    if (confirm('Are you sure you want to stop tracking this course?')) {
+        fetch(`/delete-watch/${watchId}`, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error deleting watch');
+            }
+        });
+    }
+}
+</script>
+
+<style>
+.subtitle {
+    color: var(--gray-700);
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.limit-reached {
+    padding: 0.5rem 1rem;
+    background: var(--warning-yellow);
+    color: var(--gray-900);
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.info-box {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    border-left: 4px solid var(--mcmaster-gold);
+}
+
+.info-box h4 {
+    margin-bottom: 1rem;
+    color: var(--mcmaster-maroon);
+}
+
+.info-box ul {
+    margin-left: 1.5rem;
+}
+
+.info-box li {
+    margin: 0.5rem 0;
+    color: var(--gray-700);
+}
+
+.btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+}
+
+.added-at {
+    font-size: 0.85rem;
+    color: var(--gray-700);
+}
+</style>
+{% endblock %}
