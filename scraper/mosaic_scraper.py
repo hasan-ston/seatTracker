@@ -127,6 +127,7 @@ def get_course_status(page):
         'total_sections': count
     }
 
+
 def check_course_status(subject, course_number, term, browser=None, page=None):
     """
     Check course status for a single course
