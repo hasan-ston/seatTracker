@@ -35,7 +35,7 @@ def admin_required(f):
     return decorated_function
 
 
-@app.route('/admin/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -51,7 +51,7 @@ def admin_login():
     return render_template('admin_login.html')
 
 
-@app.route('/admin/logout')
+@app.route('/logout')
 def admin_logout():
     session.pop('admin_logged_in', None)
     flash('Logged out successfully', 'success')
