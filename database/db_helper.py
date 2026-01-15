@@ -12,8 +12,17 @@ DB_PATH = os.getenv("DB_PATH", "database/courses.db")
 
 
 def get_connection():
-    """Get database connection"""
-    return sqlite3.connect(DB_PATH)
+    """
+    Get database connection with proper timeout and concurrency handling
+    """
+    # Add timeout to wait up to 30 seconds for locks to be released
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    
+    # Enable WAL (Write-Ahead Logging) mode for better concurrent access
+    # This allows readers to access the database while a writer is active
+    conn.execute('PRAGMA journal_mode=WAL')
+    
+    return conn
 
 
 def get_active_course_watches() -> List[Dict]:
