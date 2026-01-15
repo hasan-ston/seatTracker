@@ -7,8 +7,7 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
-from functools import wraps
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 from database.db_helper import (
     get_or_create_user,
     get_or_create_course,
@@ -17,73 +16,20 @@ from database.db_helper import (
     get_connection
 )
 
-class PrefixMiddleware:
-    def __init__(self, app, prefix=''):
-        self.app = app
-        self.prefix = prefix
-
-    def __call__(self, environ, start_response):
-        if environ['PATH_INFO'].startswith(self.prefix):
-            environ['PATH_INFO'] = environ['PATH_INFO'][len(self.prefix):]
-            environ['SCRIPT_NAME'] = self.prefix
-            return self.app(environ, start_response)
-        else:
-            start_response('404', [('Content-Type', 'text/plain')])
-            return [b'Not Found']
-
 app = Flask(__name__,
             template_folder='../frontend/templates',
             static_folder='../frontend/static')
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
-app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/admin')
-
-ADMIN_EMAIL = 'mhd.hasan236@gmail.com'
-ADMIN_PASSWORD = 'onlyme'
-
-
-def admin_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not session.get('admin_logged_in'):
-            return redirect(url_for('admin_login'))
-        return f(*args, **kwargs)
-    return decorated_function
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def admin_login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
-            session['admin_logged_in'] = True
-            flash('Logged in successfully', 'success')
-            return redirect(url_for('index'))
-        else:
-            flash('Invalid credentials', 'error')
-
-    return render_template('admin_login.html')
-
-
-@app.route('/logout')
-def admin_logout():
-    session.pop('admin_logged_in', None)
-    flash('Logged out successfully', 'success')
-    return redirect(url_for('admin_login'))
 
 
 @app.route('/')
-@admin_required
 def index():
     watches = get_active_course_watches()
     return render_template('index.html', watches=watches)
 
 
 @app.route('/add-watch', methods=['GET', 'POST'])
-@admin_required
 def add_watch():
-    """Add a new course watch"""
     if request.method == 'POST':
         try:
             email = request.form.get('email').strip()
@@ -98,9 +44,7 @@ def add_watch():
                 return redirect(url_for('add_watch'))
 
             user_id = get_or_create_user(email, phone)
-
             course_id = get_or_create_course(subject, course_number, term)
-
             watch_id = create_course_watch(user_id, course_id, notify_on_open)
 
             flash(f'Successfully added watch for {subject} {course_number}!', 'success')
@@ -115,14 +59,12 @@ def add_watch():
 
 @app.route('/api/watches')
 def api_watches():
-    """API endpoint to get all watches"""
     watches = get_active_course_watches()
     return jsonify(watches)
 
 
 @app.route('/api/watch/<int:watch_id>/delete', methods=['POST'])
 def delete_watch(watch_id):
-    """Delete a course watch"""
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -138,9 +80,7 @@ def delete_watch(watch_id):
 
 
 @app.route('/users')
-@admin_required
 def users():
-    """View all users and their watches"""
     conn = get_connection()
     conn.row_factory = lambda c, r: dict(zip([col[0] for col in c.description], r))
     cursor = conn.cursor()
@@ -166,9 +106,7 @@ def users():
 
 
 @app.route('/subjects')
-@admin_required
 def subjects():
-    """View all subjects"""
     conn = get_connection()
     conn.row_factory = lambda c, r: dict(zip([col[0] for col in c.description], r))
     cursor = conn.cursor()
