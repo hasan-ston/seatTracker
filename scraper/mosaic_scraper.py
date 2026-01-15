@@ -44,16 +44,28 @@ def search_for_course(page, subject, course_number, term):
     page.wait_for_selector('img[src*="STATUS"]', timeout=5000)
 
 def get_course_status(page):
+    """
+    Get the status of all course sections, excluding legend icons
+    
+    Returns:
+        dict with overall status info
+    """
     frames = page.frames
     working_frame = page
 
+    # Check if we're in an iframe
     for frame in frames:
         if frame.name == 'TargetContent':
             working_frame = frame
             print("   Checking inside iframe")
             break
 
-    status_locator = working_frame.locator('img[alt="Open"], img[alt="Closed"], img[alt="Wait List"]')
+    # Wait for results to load
+    time.sleep(2)
+    
+    # More specific selector: look for status images within table rows
+    # This excludes the legend at the top
+    status_locator = working_frame.locator('table tr img[alt="Open"], table tr img[alt="Closed"], table tr img[alt="Wait List"]')
     count = status_locator.count()
 
     if count == 0:
@@ -63,7 +75,7 @@ def get_course_status(page):
             print("   Page says: 'No classes were found'")
             return {'status': 'not_found'}
 
-        if 'INSPIRE' in page_text or 'class section' in page_text.lower():
+        if 'INNOVATE' in page_text or 'class section' in page_text.lower():
             print("   Found course text, waiting longer...")
             time.sleep(5)
 
@@ -78,20 +90,42 @@ def get_course_status(page):
             print("   Not on results page")
             return {'status': 'not_found'}
 
-    alt_text = status_locator.first.get_attribute('alt')
-
+    # Get all status indicators from actual course sections
+    print(f"   Found {count} section(s)")
+    
+    status_counts = {
+        'open': 0,
+        'closed': 0,
+        'waitlist': 0
+    }
+    
     status_map = {
         'Open': 'open',
         'Closed': 'closed',
         'Wait List': 'waitlist'
     }
-
-    status = status_map.get(alt_text, 'unknown')
-
-    print(f"   Status detected: {alt_text}")
-
-    return {'status': status}
-
+    
+    # Count each status type
+    for i in range(count):
+        alt_text = status_locator.nth(i).get_attribute('alt')
+        status = status_map.get(alt_text, 'unknown')
+        if status in status_counts:
+            status_counts[status] += 1
+    
+    print(f"   Status breakdown: {status_counts['open']} open, {status_counts['closed']} closed, {status_counts['waitlist']} waitlist")
+    
+    if status_counts['open'] > 0:
+        overall_status = 'open'
+    elif status_counts['waitlist'] > 0:
+        overall_status = 'waitlist'
+    else:
+        overall_status = 'closed'
+    
+    return {
+        'status': overall_status,
+        'details': status_counts,
+        'total_sections': count
+    }
 
 def check_course_status(subject, course_number, term, browser=None, page=None):
     """
