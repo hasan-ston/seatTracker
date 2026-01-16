@@ -43,6 +43,12 @@ def index():
     return render_template('landing.html')
 
 
+@app.route('/google4f429853378b8a4f.html')
+def google_verification():
+    """Google site verification"""
+    return 'google-site-verification: google4f429853378b8a4f.html'
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """User registration"""
