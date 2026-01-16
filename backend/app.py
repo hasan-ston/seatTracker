@@ -7,7 +7,8 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
+from functools import wraps
 from database.db_helper import (
     get_or_create_user,
     get_or_create_course,
@@ -21,9 +22,49 @@ app = Flask(__name__,
             static_folder='../frontend/static')
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
+# Admin credentials
+ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'mhd.hasan236@gmail.com')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'onlyme')
+
+
+def admin_required(f):
+    """Decorator to require admin login"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_logged_in'):
+            return redirect(url_for('admin_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    """Admin login page"""
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '').strip()
+
+        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
+            session['admin_logged_in'] = True
+            return redirect(url_for('index'))
+        else:
+            flash('Invalid email or password', 'error')
+            return redirect(url_for('admin_login'))
+
+    return render_template('admin_login.html')
+
+
+@app.route('/admin/logout')
+def admin_logout():
+    """Admin logout"""
+    session.pop('admin_logged_in', None)
+    flash('Logged out successfully', 'success')
+    return redirect(url_for('admin_login'))
+
 
 @app.route('/')
 @app.route('/admin/')
+@admin_required
 def index():
     watches = get_active_course_watches()
     return render_template('index.html', watches=watches)
@@ -31,6 +72,7 @@ def index():
 
 @app.route('/add-watch', methods=['GET', 'POST'])
 @app.route('/admin/add-watch', methods=['GET', 'POST'])
+@admin_required
 def add_watch():
     if request.method == 'POST':
         try:
@@ -61,6 +103,7 @@ def add_watch():
 
 @app.route('/api/watches')
 @app.route('/admin/api/watches')
+@admin_required
 def api_watches():
     watches = get_active_course_watches()
     return jsonify(watches)
@@ -68,6 +111,7 @@ def api_watches():
 
 @app.route('/api/watch/<int:watch_id>/delete', methods=['POST'])
 @app.route('/admin/api/watch/<int:watch_id>/delete', methods=['POST'])
+@admin_required
 def delete_watch(watch_id):
     try:
         conn = get_connection()
@@ -85,6 +129,7 @@ def delete_watch(watch_id):
 
 @app.route('/users')
 @app.route('/admin/users')
+@admin_required
 def users():
     conn = get_connection()
     conn.row_factory = lambda c, r: dict(zip([col[0] for col in c.description], r))
@@ -112,6 +157,7 @@ def users():
 
 @app.route('/subjects')
 @app.route('/admin/subjects')
+@admin_required
 def subjects():
     conn = get_connection()
     conn.row_factory = lambda c, r: dict(zip([col[0] for col in c.description], r))
