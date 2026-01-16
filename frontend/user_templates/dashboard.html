@@ -9,34 +9,17 @@
 {% block content %}
 <!-- Welcome Animation Overlay -->
 <div id="welcome-overlay" class="welcome-overlay">
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
+    <div class="sky-background">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
     </div>
     <div class="welcome-content">
-        <div class="glitch-wrapper">
-            <h1 class="welcome-text glitch" data-text="Welcome">Welcome</h1>
-        </div>
-        <div class="username-wrapper">
-            <h2 class="welcome-username">{{ session.email.split('@')[0] }}</h2>
-            <div class="sparkles">
-                <span class="sparkle">✨</span>
-                <span class="sparkle">⭐</span>
-                <span class="sparkle">💫</span>
-                <span class="sparkle">✨</span>
-            </div>
-        </div>
-        <div class="wave-container">
-            <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 C150,100 350,0 600,50 C850,100 1050,0 1200,50 L1200,120 L0,120 Z"></path>
-            </svg>
-        </div>
+        <h1 class="welcome-text">Welcome Back</h1>
+        <h2 class="welcome-username">{{ session.email.split('@')[0] }}</h2>
+    </div>
+    <div class="airplane-container">
+        <div class="airplane">✈️</div>
     </div>
 </div>
 
@@ -181,208 +164,206 @@ function deleteWatch(watchId) {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #7F1D1D 0%, #991B1B 50%, #B91C1C 100%);
-    background-size: 400% 400%;
+    background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 60%, #FFF8DC 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    animation: gradientShift 3s ease infinite, fadeOut 0.6s ease-in-out 3.5s forwards;
     overflow: hidden;
+    animation: slideUp 2.5s cubic-bezier(0.65, 0, 0.35, 1) 1.5s forwards;
 }
 
-/* Floating Particles */
-.particles {
+/* Sky Background with Clouds */
+.sky-background {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
-.particle {
+.cloud {
     position: absolute;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    animation: float 3s ease-in-out infinite;
+    background: white;
+    border-radius: 100px;
+    opacity: 0.8;
+    animation: cloudFloat 4s ease-in-out infinite;
 }
 
-.particle:nth-child(1) { width: 80px; height: 80px; left: 10%; top: 20%; animation-delay: 0s; }
-.particle:nth-child(2) { width: 60px; height: 60px; left: 80%; top: 60%; animation-delay: 0.5s; }
-.particle:nth-child(3) { width: 40px; height: 40px; left: 50%; top: 50%; animation-delay: 1s; }
-.particle:nth-child(4) { width: 70px; height: 70px; left: 20%; top: 70%; animation-delay: 1.5s; }
-.particle:nth-child(5) { width: 50px; height: 50px; left: 70%; top: 30%; animation-delay: 0.3s; }
-.particle:nth-child(6) { width: 90px; height: 90px; left: 40%; top: 80%; animation-delay: 0.8s; }
-.particle:nth-child(7) { width: 55px; height: 55px; left: 90%; top: 40%; animation-delay: 1.2s; }
-.particle:nth-child(8) { width: 65px; height: 65px; left: 30%; top: 10%; animation-delay: 0.6s; }
+.cloud::before,
+.cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 100px;
+}
 
+.cloud-1 {
+    width: 100px;
+    height: 40px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.cloud-1::before {
+    width: 50px;
+    height: 50px;
+    top: -25px;
+    left: 10px;
+}
+
+.cloud-1::after {
+    width: 60px;
+    height: 40px;
+    top: -15px;
+    right: 10px;
+}
+
+.cloud-2 {
+    width: 120px;
+    height: 50px;
+    top: 40%;
+    right: 15%;
+    animation-delay: 1s;
+}
+
+.cloud-2::before {
+    width: 60px;
+    height: 60px;
+    top: -30px;
+    left: 15px;
+}
+
+.cloud-2::after {
+    width: 70px;
+    height: 50px;
+    top: -20px;
+    right: 15px;
+}
+
+.cloud-3 {
+    width: 80px;
+    height: 35px;
+    top: 60%;
+    left: 70%;
+    animation-delay: 0.5s;
+}
+
+.cloud-3::before {
+    width: 45px;
+    height: 45px;
+    top: -20px;
+    left: 8px;
+}
+
+.cloud-3::after {
+    width: 50px;
+    height: 35px;
+    top: -12px;
+    right: 8px;
+}
+
+/* Welcome Content */
 .welcome-content {
     text-align: center;
     position: relative;
     z-index: 10;
-}
-
-/* Glitch Effect */
-.glitch-wrapper {
-    position: relative;
+    animation: fadeInContent 1s ease-out forwards;
 }
 
 .welcome-text {
-    font-size: 5rem;
+    font-size: 4rem;
     font-weight: 700;
-    color: white;
+    color: var(--mcmaster-maroon);
     margin: 0;
-    opacity: 0;
-    transform: translateY(-50px) rotate(-5deg);
-    animation: slideInRotate 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s forwards;
-    text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 215, 0, 0.3);
-    letter-spacing: 0.1em;
-}
-
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.glitch::before {
-    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s infinite;
-    color: #ff0000;
-    z-index: -1;
-}
-
-.glitch::after {
-    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s reverse infinite;
-    color: #00ffff;
-    z-index: -2;
-}
-
-/* Username Animation */
-.username-wrapper {
-    position: relative;
-    margin-top: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 .welcome-username {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 800;
-    background: linear-gradient(45deg, #FDE68A, #FCD34D, #FBBF24, #F59E0B, #FCD34D, #FDE68A);
-    background-size: 300% 300%;
+    background: linear-gradient(45deg, #FCD34D, #F59E0B, #FBBF24);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin: 0;
+    margin-top: 1rem;
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s forwards;
     opacity: 0;
-    transform: scale(0.5) rotateX(90deg);
-    animation:
-        flipIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.2s forwards,
-        shimmer 2s linear 2s infinite;
-    position: relative;
-    text-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
 }
 
-/* Sparkles */
-.sparkles {
+/* Airplane Animation */
+.airplane-container {
     position: absolute;
-    width: 100%;
-    top: -30px;
-    left: 0;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
 }
 
-.sparkle {
-    position: absolute;
-    font-size: 2rem;
-    opacity: 0;
-    animation: sparkleAnimation 1.5s ease-in-out infinite;
-}
-
-.sparkle:nth-child(1) { left: 10%; animation-delay: 2s; }
-.sparkle:nth-child(2) { left: 30%; animation-delay: 2.3s; }
-.sparkle:nth-child(3) { left: 70%; animation-delay: 2.6s; }
-.sparkle:nth-child(4) { left: 90%; animation-delay: 2.9s; }
-
-/* Wave Animation */
-.wave-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    opacity: 0;
-    animation: waveAppear 0.8s ease-out 2.5s forwards;
-}
-
-.wave {
-    width: 100%;
-    height: 120px;
-    fill: rgba(255, 255, 255, 0.1);
-    animation: waveMove 3s ease-in-out infinite;
+.airplane {
+    font-size: 6rem;
+    animation: airplaneFly 2.5s cubic-bezier(0.65, 0, 0.35, 1) 1.5s forwards;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 /* Keyframes */
-@keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
-    25% { transform: translateY(-20px) translateX(10px) rotate(90deg); }
-    50% { transform: translateY(-40px) translateX(-10px) rotate(180deg); }
-    75% { transform: translateY(-20px) translateX(-15px) rotate(270deg); }
-}
-
-@keyframes slideInRotate {
-    to {
-        opacity: 1;
-        transform: translateY(0) rotate(0deg);
+@keyframes cloudFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
     }
 }
 
-@keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-}
-
-@keyframes flipIn {
-    to {
-        opacity: 1;
-        transform: scale(1) rotateX(0deg);
-    }
-}
-
-@keyframes shimmer {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
-}
-
-@keyframes sparkleAnimation {
-    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-    50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
-}
-
-@keyframes waveAppear {
-    to { opacity: 1; }
-}
-
-@keyframes waveMove {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(-20px); }
-}
-
-@keyframes fadeOut {
-    to {
+@keyframes fadeInContent {
+    from {
         opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes airplaneFly {
+    0% {
+        bottom: -100px;
+        transform: translateX(-50%) rotate(0deg);
+    }
+    100% {
+        bottom: 120vh;
+        transform: translateX(-50%) rotate(-5deg);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
         visibility: hidden;
-        transform: scale(1.1);
     }
 }
 </style>
@@ -396,6 +377,6 @@ setTimeout(function() {
     if (overlay) {
         overlay.remove();
     }
-}, 3000);
+}, 4000);
 </script>
 {% endblock %}
