@@ -9,6 +9,8 @@
 {% block content %}
 <!-- Welcome Animation Overlay -->
 <div id="welcome-overlay" class="welcome-overlay">
+    <div class="campus-background"></div>
+    <div class="night-overlay"></div>
     <div class="stars"></div>
     <div class="welcome-content">
         <h1 class="welcome-text">Welcome Back</h1>
@@ -158,7 +160,6 @@ function deleteWatch(watchId) {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, #0a1128 0%, #1e3a5f 50%, #2a5298 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,6 +171,26 @@ function deleteWatch(watchId) {
 
 .welcome-overlay.fade-out {
     opacity: 0;
+}
+
+/* McMaster Campus Background */
+.campus-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+/* Night Overlay */
+.night-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(10, 17, 40, 0.85) 0%, rgba(30, 58, 95, 0.75) 50%, rgba(42, 82, 152, 0.7) 100%);
+    z-index: 2;
 }
 
 /* Stars Background */
@@ -187,6 +208,7 @@ function deleteWatch(watchId) {
         radial-gradient(1px 1px at 15% 60%, white, transparent);
     background-size: 200% 200%;
     animation: twinkle 3s ease-in-out infinite;
+    z-index: 3;
 }
 
 /* Welcome Content */
@@ -202,7 +224,7 @@ function deleteWatch(watchId) {
     font-weight: 700;
     color: white;
     margin: 0;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.5);
     animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
@@ -216,19 +238,18 @@ function deleteWatch(watchId) {
     margin-top: 1rem;
     animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s forwards;
     opacity: 0;
-    filter: drop-shadow(0 0 10px rgba(252, 211, 77, 0.5));
+    filter: drop-shadow(0 0 15px rgba(252, 211, 77, 0.8)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 /* Airplane Animation */
 .airplane {
     position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 5%;
+    left: -10%;
     font-size: 6rem;
     z-index: 100;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-    animation: airplaneFlyUp 2s ease-in 1.2s forwards;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)) drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.6));
+    animation: airplaneFlyDiagonal 2.5s ease-in-out 1s forwards;
 }
 
 /* Keyframes */
@@ -270,19 +291,21 @@ function deleteWatch(watchId) {
     }
 }
 
-@keyframes airplaneFlyUp {
+@keyframes airplaneFlyDiagonal {
     0% {
-        bottom: 10%;
-        transform: translateX(-50%) rotate(0deg);
+        bottom: 5%;
+        left: -10%;
+        transform: rotate(45deg) scale(1);
         opacity: 1;
     }
-    50% {
-        transform: translateX(-50%) rotate(-10deg);
+    30% {
+        opacity: 1;
     }
     100% {
-        bottom: 120%;
-        transform: translateX(-50%) rotate(-5deg) scale(1.5);
-        opacity: 0.8;
+        bottom: 110%;
+        left: 110%;
+        transform: rotate(45deg) scale(1.8);
+        opacity: 0.9;
     }
 }
 </style>
@@ -299,6 +322,6 @@ setTimeout(function() {
             overlay.remove();
         }, 500);
     }
-}, 3200);
+}, 3500);
 </script>
 {% endblock %}
