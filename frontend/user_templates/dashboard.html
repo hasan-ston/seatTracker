@@ -9,9 +9,34 @@
 {% block content %}
 <!-- Welcome Animation Overlay -->
 <div id="welcome-overlay" class="welcome-overlay">
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="welcome-content">
-        <h1 class="welcome-text">Welcome</h1>
-        <h2 class="welcome-username">{{ session.email.split('@')[0] }}</h2>
+        <div class="glitch-wrapper">
+            <h1 class="welcome-text glitch" data-text="Welcome">Welcome</h1>
+        </div>
+        <div class="username-wrapper">
+            <h2 class="welcome-username">{{ session.email.split('@')[0] }}</h2>
+            <div class="sparkles">
+                <span class="sparkle">✨</span>
+                <span class="sparkle">⭐</span>
+                <span class="sparkle">💫</span>
+                <span class="sparkle">✨</span>
+            </div>
+        </div>
+        <div class="wave-container">
+            <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C150,100 350,0 600,50 C850,100 1050,0 1200,50 L1200,120 L0,120 Z"></path>
+            </svg>
+        </div>
     </div>
 </div>
 
@@ -157,76 +182,207 @@ function deleteWatch(watchId) {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #7F1D1D 0%, #991B1B 50%, #B91C1C 100%);
+    background-size: 400% 400%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    animation: fadeOut 0.5s ease-in-out 2.5s forwards;
+    animation: gradientShift 3s ease infinite, fadeOut 0.6s ease-in-out 3.5s forwards;
+    overflow: hidden;
 }
+
+/* Floating Particles */
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: float 3s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { width: 80px; height: 80px; left: 10%; top: 20%; animation-delay: 0s; }
+.particle:nth-child(2) { width: 60px; height: 60px; left: 80%; top: 60%; animation-delay: 0.5s; }
+.particle:nth-child(3) { width: 40px; height: 40px; left: 50%; top: 50%; animation-delay: 1s; }
+.particle:nth-child(4) { width: 70px; height: 70px; left: 20%; top: 70%; animation-delay: 1.5s; }
+.particle:nth-child(5) { width: 50px; height: 50px; left: 70%; top: 30%; animation-delay: 0.3s; }
+.particle:nth-child(6) { width: 90px; height: 90px; left: 40%; top: 80%; animation-delay: 0.8s; }
+.particle:nth-child(7) { width: 55px; height: 55px; left: 90%; top: 40%; animation-delay: 1.2s; }
+.particle:nth-child(8) { width: 65px; height: 65px; left: 30%; top: 10%; animation-delay: 0.6s; }
 
 .welcome-content {
     text-align: center;
+    position: relative;
+    z-index: 10;
 }
 
-.welcome-text {
-    font-size: 4rem;
-    font-weight: 300;
-    color: white;
-    margin: 0;
-    opacity: 0;
-    transform: translateY(-30px);
-    animation: slideInDown 0.8s ease-out 0.2s forwards;
-}
-
-.welcome-username {
-    font-size: 3rem;
-    font-weight: 600;
-    background: linear-gradient(to right, #FDE68A, #FCD34D, #FBBF24);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 1rem 0 0 0;
-    opacity: 0;
-    transform: scale(0.8);
-    animation: zoomIn 0.6s ease-out 0.9s forwards;
+/* Glitch Effect */
+.glitch-wrapper {
     position: relative;
 }
 
-.welcome-username::after {
-    content: '';
+.welcome-text {
+    font-size: 5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(-50px) rotate(-5deg);
+    animation: slideInRotate 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s forwards;
+    text-shadow:
+        0 0 20px rgba(255, 255, 255, 0.5),
+        0 0 40px rgba(255, 215, 0, 0.3);
+    letter-spacing: 0.1em;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
     position: absolute;
-    bottom: -10px;
+    top: 0;
     left: 0;
-    width: 0;
-    height: 3px;
-    background: linear-gradient(to right, #FDE68A, #FCD34D, #FBBF24);
-    animation: underlineExpand 0.8s ease-out 1.2s forwards;
+    width: 100%;
+    height: 100%;
 }
 
-@keyframes slideInDown {
+.glitch::before {
+    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s infinite;
+    color: #ff0000;
+    z-index: -1;
+}
+
+.glitch::after {
+    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s reverse infinite;
+    color: #00ffff;
+    z-index: -2;
+}
+
+/* Username Animation */
+.username-wrapper {
+    position: relative;
+    margin-top: 2rem;
+}
+
+.welcome-username {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #FDE68A, #FCD34D, #FBBF24, #F59E0B, #FCD34D, #FDE68A);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    opacity: 0;
+    transform: scale(0.5) rotateX(90deg);
+    animation:
+        flipIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.2s forwards,
+        shimmer 2s linear 2s infinite;
+    position: relative;
+    text-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+}
+
+/* Sparkles */
+.sparkles {
+    position: absolute;
+    width: 100%;
+    top: -30px;
+    left: 0;
+}
+
+.sparkle {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0;
+    animation: sparkleAnimation 1.5s ease-in-out infinite;
+}
+
+.sparkle:nth-child(1) { left: 10%; animation-delay: 2s; }
+.sparkle:nth-child(2) { left: 30%; animation-delay: 2.3s; }
+.sparkle:nth-child(3) { left: 70%; animation-delay: 2.6s; }
+.sparkle:nth-child(4) { left: 90%; animation-delay: 2.9s; }
+
+/* Wave Animation */
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    animation: waveAppear 0.8s ease-out 2.5s forwards;
+}
+
+.wave {
+    width: 100%;
+    height: 120px;
+    fill: rgba(255, 255, 255, 0.1);
+    animation: waveMove 3s ease-in-out infinite;
+}
+
+/* Keyframes */
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    25% { transform: translateY(-20px) translateX(10px) rotate(90deg); }
+    50% { transform: translateY(-40px) translateX(-10px) rotate(180deg); }
+    75% { transform: translateY(-20px) translateX(-15px) rotate(270deg); }
+}
+
+@keyframes slideInRotate {
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) rotate(0deg);
     }
 }
 
-@keyframes zoomIn {
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes flipIn {
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) rotateX(0deg);
     }
 }
 
-@keyframes underlineExpand {
-    to {
-        width: 100%;
-    }
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+@keyframes sparkleAnimation {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
+}
+
+@keyframes waveAppear {
+    to { opacity: 1; }
+}
+
+@keyframes waveMove {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-20px); }
 }
 
 @keyframes fadeOut {
     to {
         opacity: 0;
         visibility: hidden;
+        transform: scale(1.1);
     }
 }
 </style>
