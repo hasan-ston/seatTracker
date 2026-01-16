@@ -4,8 +4,10 @@ Flask web application for McMaster Seat Tracker
 
 import sys
 import os
+from dotenv import load_dotenv
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+load_dotenv()
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
 from functools import wraps
