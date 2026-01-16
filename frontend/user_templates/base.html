@@ -16,11 +16,13 @@
             <ul class="nav-menu">
                 {% if session.user_id %}
                     <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('status') }}">Status</a></li>
                     <li><a href="{{ url_for('add_watch') }}" class="btn-primary">+ Add Watch</a></li>
                     <li><span style="color: white;">{{ session.email }}</span></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('status') }}">Status</a></li>
                     <li><a href="{{ url_for('login') }}">Login</a></li>
                     <li><a href="{{ url_for('register') }}" class="btn-primary">Sign Up</a></li>
                 {% endif %}
