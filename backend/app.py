@@ -23,8 +23,8 @@ app = Flask(__name__,
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Admin credentials
-ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'mhd.hasan236@gmail.com')
-ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'onlyme')
+ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
 
 
 def admin_required(f):
