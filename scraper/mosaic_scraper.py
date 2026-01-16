@@ -90,29 +90,31 @@ def get_course_status(page):
             print("   Not on results page")
             return {'status': 'not_found'}
 
-    # Get all status indicators from actual course sections
-    print(f"   Found {count} section(s)")
-    
+    # Skip first 3 icons (legend) and only count actual course sections
+    # The legend always shows: Open, Closed, Wait List icons
+    actual_sections_count = max(0, count - 3)
+    print(f"   Found {count} status indicators (3 legend + {actual_sections_count} actual sections)")
+
     status_counts = {
         'open': 0,
         'closed': 0,
         'waitlist': 0
     }
-    
+
     status_map = {
         'Open': 'open',
         'Closed': 'closed',
         'Wait List': 'waitlist'
     }
-    
-    # Count each status type
-    for i in range(count):
+
+    # Count each status type, skipping the first 3 (legend icons)
+    for i in range(3, count):
         alt_text = status_locator.nth(i).get_attribute('alt')
         status = status_map.get(alt_text, 'unknown')
         if status in status_counts:
             status_counts[status] += 1
-    
-    print(f"   Status breakdown: {status_counts['open']} open, {status_counts['closed']} closed, {status_counts['waitlist']} waitlist")
+
+    print(f"   Status breakdown (excluding legend): {status_counts['open']} open, {status_counts['closed']} closed, {status_counts['waitlist']} waitlist")
     
     if status_counts['open'] > 0:
         overall_status = 'open'
@@ -124,7 +126,7 @@ def get_course_status(page):
     return {
         'status': overall_status,
         'details': status_counts,
-        'total_sections': count
+        'total_sections': actual_sections_count
     }
 
 
