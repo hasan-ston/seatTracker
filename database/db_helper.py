@@ -197,6 +197,43 @@ def get_or_create_user(email: str, phone: Optional[str] = None) -> int:
     return user_id
 
 
+def cleanup_old_records(retention_days: int = 4) -> dict:
+    """
+    Delete old status_history and notifications records to prevent unbounded database growth.
+
+    Args:
+        retention_days: Number of days to keep records (default 4)
+
+    Returns:
+        Dict with counts of deleted records
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # Delete old status_history records
+    cursor.execute("""
+        DELETE FROM status_history
+        WHERE checked_at < datetime('now', ?)
+    """, (f'-{retention_days} days',))
+    status_history_deleted = cursor.rowcount
+
+    # Delete old notifications records
+    cursor.execute("""
+        DELETE FROM notifications
+        WHERE sent_at < datetime('now', ?)
+    """, (f'-{retention_days} days',))
+    notifications_deleted = cursor.rowcount
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return {
+        'status_history_deleted': status_history_deleted,
+        'notifications_deleted': notifications_deleted
+    }
+
+
 def create_course_watch(user_id: int, course_id: int, notify_on_open: bool = True) -> int:
     """
     Create a new course watch

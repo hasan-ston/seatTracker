@@ -15,7 +15,8 @@ from scraper.notifier import send_course_open_notification, send_sms
 from database.db_helper import (
     get_active_course_watches,
     update_course_watch_status,
-    create_notification
+    create_notification,
+    cleanup_old_records
 )
 
 
@@ -130,12 +131,17 @@ def scrape_all_courses():
         print("\nClosing browser...")
         browser.close()
 
+    # Cleanup old records to prevent database growth
+    cleanup_result = cleanup_old_records(retention_days=4)
+
     print("\n" + "=" * 70)
     print("SUMMARY")
     print("=" * 70)
     print(f"Courses checked: {checked}/{len(watches)}")
     print(f"Status changes: {status_changed}")
     print(f"Errors: {errors}")
+    if cleanup_result['status_history_deleted'] > 0 or cleanup_result['notifications_deleted'] > 0:
+        print(f"Cleaned up: {cleanup_result['status_history_deleted']} old status records, {cleanup_result['notifications_deleted']} old notifications")
     print(f"Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 70)
 
