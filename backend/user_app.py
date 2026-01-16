@@ -282,6 +282,33 @@ def delete_watch(watch_id):
     return jsonify({'success': True})
 
 
+@app.route('/status')
+def status():
+    """Public status page showing system statistics"""
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # Get total users
+    cursor.execute('SELECT COUNT(*) FROM users')
+    total_users = cursor.fetchone()[0]
+
+    # Get total active watches
+    cursor.execute('SELECT COUNT(*) FROM course_watches WHERE active = 1')
+    total_watches = cursor.fetchone()[0]
+
+    # Get total courses being monitored
+    cursor.execute('SELECT COUNT(DISTINCT course_id) FROM course_watches WHERE active = 1')
+    total_courses = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return render_template('status.html',
+                          total_users=total_users,
+                          total_watches=total_watches,
+                          total_courses=total_courses)
+
+
 if __name__ == '__main__':
     print("\nStarting McMaster Seat Tracker - User Portal...")
     print("   Open your browser to: http://127.0.0.1:5001")
