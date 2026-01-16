@@ -23,12 +23,14 @@ app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 
 @app.route('/')
+@app.route('/admin/')
 def index():
     watches = get_active_course_watches()
     return render_template('index.html', watches=watches)
 
 
 @app.route('/add-watch', methods=['GET', 'POST'])
+@app.route('/admin/add-watch', methods=['GET', 'POST'])
 def add_watch():
     if request.method == 'POST':
         try:
@@ -58,12 +60,14 @@ def add_watch():
 
 
 @app.route('/api/watches')
+@app.route('/admin/api/watches')
 def api_watches():
     watches = get_active_course_watches()
     return jsonify(watches)
 
 
 @app.route('/api/watch/<int:watch_id>/delete', methods=['POST'])
+@app.route('/admin/api/watch/<int:watch_id>/delete', methods=['POST'])
 def delete_watch(watch_id):
     try:
         conn = get_connection()
@@ -80,6 +84,7 @@ def delete_watch(watch_id):
 
 
 @app.route('/users')
+@app.route('/admin/users')
 def users():
     conn = get_connection()
     conn.row_factory = lambda c, r: dict(zip([col[0] for col in c.description], r))
@@ -106,6 +111,7 @@ def users():
 
 
 @app.route('/subjects')
+@app.route('/admin/subjects')
 def subjects():
     conn = get_connection()
     conn.row_factory = lambda c, r: dict(zip([col[0] for col in c.description], r))
