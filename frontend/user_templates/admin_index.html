@@ -2,14 +2,11 @@
 
 {% block title %}Active Watches - McMaster Seat Tracker (Admin){% endblock %}
 
-{% block extra_head %}
-<meta http-equiv="refresh" content="30">
-{% endblock %}
 
 {% block content %}
 <div class="header-section">
     <h2>Active Course Watches</h2>
-    <a href="{{ url_for('add_watch') }}" class="btn btn-primary">+ Add New Watch</a>
+    <a href="{{ url_for('admin_add_watch') }}" class="btn btn-primary">+ Add New Watch</a>
 </div>
 
 {% if watches %}
@@ -48,14 +45,14 @@
     <div class="empty-state">
         <h3>No active watches</h3>
         <p>Get started by adding your first course watch!</p>
-        <a href="{{ url_for('add_watch') }}" class="btn btn-primary">Add Watch</a>
+        <a href="{{ url_for('admin_add_watch') }}" class="btn btn-primary">Add Watch</a>
     </div>
 {% endif %}
 
 <script>
 function deleteWatch(watchId) {
     if (confirm('Are you sure you want to delete this watch?')) {
-        fetch(`/api/watch/${watchId}/delete`, {
+        fetch(`/admin/api/watch/${watchId}/delete`, {
             method: 'POST',
         })
         .then(response => response.json())

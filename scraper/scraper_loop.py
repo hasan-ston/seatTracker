@@ -140,8 +140,8 @@ def scrape_all_courses():
     print(f"Courses checked: {checked}/{len(watches)}")
     print(f"Status changes: {status_changed}")
     print(f"Errors: {errors}")
-    if cleanup_result['status_history_deleted'] > 0 or cleanup_result['notifications_deleted'] > 0:
-        print(f"Cleaned up: {cleanup_result['status_history_deleted']} old status records, {cleanup_result['notifications_deleted']} old notifications")
+    if cleanup_result['notifications_deleted'] > 0:
+        print(f"Cleaned up: {cleanup_result['notifications_deleted']} old notifications")
     print(f"Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 70)
 

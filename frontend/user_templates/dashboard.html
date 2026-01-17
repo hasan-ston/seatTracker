@@ -2,9 +2,6 @@
 
 {% block title %}Dashboard - McMaster Seat Tracker{% endblock %}
 
-{% block extra_head %}
-<meta http-equiv="refresh" content="30">
-{% endblock %}
 
 {% block content %}
 <!-- Welcome Animation Overlay -->
@@ -18,7 +15,7 @@
 <div class="header-section">
     <div>
         <h2>My Course Watches</h2>
-        <p class="subtitle">Watching {{ watch_count }} of {{ max_watches }} courses | Page auto-refreshes every 30s</p>
+        <p class="subtitle">Watching {{ watch_count }} of {{ max_watches }} courses</p>
     </div>
     {% if can_add_more %}
         <a href="{{ url_for('add_watch') }}" class="btn btn-primary">+ Add Watch</a>
@@ -69,7 +66,7 @@
 <div class="info-box">
     <h4>Tips:</h4>
     <ul>
-        <li>This page auto-refreshes every 30 seconds to show latest status</li>
+        <li>Refresh the page to see the latest status</li>
         <li>You'll receive an email when a course opens</li>
         <li>The scraper checks courses every 15 seconds</li>
         <li>You can track up to {{ max_watches }} courses at a time</li>

@@ -91,11 +91,6 @@ def update_course_watch_status(watch_id: int, new_status: str) -> bool:
         WHERE id = ?
     """, (new_status, datetime.now(), watch_id))
 
-    cursor.execute("""
-        INSERT INTO status_history (course_watch_id, status)
-        VALUES (?, ?)
-    """, (watch_id, new_status))
-
     conn.commit()
     cursor.close()
     conn.close()
@@ -199,7 +194,7 @@ def get_or_create_user(email: str, phone: Optional[str] = None) -> int:
 
 def cleanup_old_records(retention_days: int = 4) -> dict:
     """
-    Delete old status_history and notifications records to prevent unbounded database growth.
+    Delete old notifications and expired password reset tokens to prevent unbounded database growth.
 
     Args:
         retention_days: Number of days to keep records (default 4)
@@ -210,13 +205,6 @@ def cleanup_old_records(retention_days: int = 4) -> dict:
     conn = get_connection()
     cursor = conn.cursor()
 
-    # Delete old status_history records
-    cursor.execute("""
-        DELETE FROM status_history
-        WHERE checked_at < datetime('now', ?)
-    """, (f'-{retention_days} days',))
-    status_history_deleted = cursor.rowcount
-
     # Delete old notifications records
     cursor.execute("""
         DELETE FROM notifications
@@ -224,13 +212,20 @@ def cleanup_old_records(retention_days: int = 4) -> dict:
     """, (f'-{retention_days} days',))
     notifications_deleted = cursor.rowcount
 
+    # Delete expired or used password reset tokens
+    cursor.execute("""
+        DELETE FROM password_reset_tokens
+        WHERE used = 1 OR expires_at < datetime('now')
+    """)
+    tokens_deleted = cursor.rowcount
+
     conn.commit()
     cursor.close()
     conn.close()
 
     return {
-        'status_history_deleted': status_history_deleted,
-        'notifications_deleted': notifications_deleted
+        'notifications_deleted': notifications_deleted,
+        'tokens_deleted': tokens_deleted
     }
 
 

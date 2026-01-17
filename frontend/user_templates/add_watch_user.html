@@ -11,9 +11,13 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="subject">Subject Code *</label>
-                <input type="text" id="subject" name="subject" required
-                       placeholder="COMPSCI" style="text-transform: uppercase;" list="subjects-list">
-                <small>Example: COMPSCI, INSPIRE, MATH</small>
+                <div class="autocomplete-wrapper">
+                    <input type="text" id="subject" name="subject" required
+                           placeholder="COMPSCI" style="text-transform: uppercase;"
+                           autocomplete="off">
+                    <div id="subject-suggestions" class="suggestions-dropdown"></div>
+                </div>
+                <small>Start typing to search (e.g., COMPSCI, INNOVATE, MATH)</small>
             </div>
 
             <div class="form-group">
@@ -81,5 +85,174 @@
     margin-top: 1rem;
     font-family: monospace;
 }
+
+/* Autocomplete styles */
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.suggestions-dropdown.active {
+    display: block;
+}
+
+.suggestion-item {
+    padding: 0.75rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.highlighted {
+    background-color: var(--gray-100);
+}
+
+.suggestion-code {
+    font-weight: 600;
+    color: var(--mcmaster-maroon);
+}
+
+.suggestion-name {
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    margin-left: 0.5rem;
+}
 </style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const subjectInput = document.getElementById('subject');
+    const suggestionsDropdown = document.getElementById('subject-suggestions');
+    let highlightedIndex = -1;
+    let suggestions = [];
+    let debounceTimer;
+
+    function fetchSuggestions(query) {
+        if (query.length < 1) {
+            hideSuggestions();
+            return;
+        }
+
+        fetch(`/api/subjects/search?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                suggestions = data;
+                renderSuggestions(data);
+            })
+            .catch(err => console.error('Error fetching suggestions:', err));
+    }
+
+    function renderSuggestions(items) {
+        if (items.length === 0) {
+            hideSuggestions();
+            return;
+        }
+
+        suggestionsDropdown.innerHTML = items.map((item, index) => `
+            <div class="suggestion-item" data-index="${index}" data-code="${item.code}">
+                <span class="suggestion-code">${item.code}</span>
+                <span class="suggestion-name">- ${item.name}</span>
+            </div>
+        `).join('');
+
+        suggestionsDropdown.classList.add('active');
+        highlightedIndex = -1;
+    }
+
+    function hideSuggestions() {
+        suggestionsDropdown.classList.remove('active');
+        suggestionsDropdown.innerHTML = '';
+        highlightedIndex = -1;
+    }
+
+    function selectSuggestion(code) {
+        subjectInput.value = code;
+        hideSuggestions();
+        document.getElementById('course_number').focus();
+    }
+
+    function highlightSuggestion(index) {
+        const items = suggestionsDropdown.querySelectorAll('.suggestion-item');
+        items.forEach(item => item.classList.remove('highlighted'));
+
+        if (index >= 0 && index < items.length) {
+            items[index].classList.add('highlighted');
+            items[index].scrollIntoView({ block: 'nearest' });
+        }
+        highlightedIndex = index;
+    }
+
+    subjectInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            fetchSuggestions(this.value.trim());
+        }, 150);
+    });
+
+    subjectInput.addEventListener('keydown', function(e) {
+        const items = suggestionsDropdown.querySelectorAll('.suggestion-item');
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (highlightedIndex < items.length - 1) {
+                highlightSuggestion(highlightedIndex + 1);
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (highlightedIndex > 0) {
+                highlightSuggestion(highlightedIndex - 1);
+            }
+        } else if (e.key === 'Enter') {
+            if (highlightedIndex >= 0 && suggestions[highlightedIndex]) {
+                e.preventDefault();
+                selectSuggestion(suggestions[highlightedIndex].code);
+            }
+        } else if (e.key === 'Escape') {
+            hideSuggestions();
+        }
+    });
+
+    suggestionsDropdown.addEventListener('click', function(e) {
+        const item = e.target.closest('.suggestion-item');
+        if (item) {
+            selectSuggestion(item.dataset.code);
+        }
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!subjectInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
+            hideSuggestions();
+        }
+    });
+
+    // Show suggestions on focus if there's already text
+    subjectInput.addEventListener('focus', function() {
+        if (this.value.trim().length >= 1) {
+            fetchSuggestions(this.value.trim());
+        }
+    });
+});
+</script>
 {% endblock %}

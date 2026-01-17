@@ -434,6 +434,21 @@ footer {
     text-align: center;
 }
 
+footer .footer-links {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--gray-300);
+}
+
+footer .footer-links a {
+    color: var(--mcmaster-gold);
+    text-decoration: none;
+}
+
+footer .footer-links a:hover {
+    text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .navbar .container {

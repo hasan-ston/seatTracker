@@ -59,15 +59,6 @@ def init_database():
         )
     """)
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS status_history (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            course_watch_id INTEGER NOT NULL,
-            status TEXT NOT NULL,
-            checked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (course_watch_id) REFERENCES course_watches(id)
-        )
-    """)
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS notifications (
@@ -80,6 +71,27 @@ def init_database():
             FOREIGN KEY (course_watch_id) REFERENCES course_watches(id)
         )
     """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS password_reset_tokens (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            token TEXT UNIQUE NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            expires_at TIMESTAMP NOT NULL,
+            used INTEGER DEFAULT 0,
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        )
+    """)
+
+    # Create indexes for query optimization
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_course_watches_user_id ON course_watches(user_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_course_watches_active ON course_watches(active)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_course_watches_course_id ON course_watches(course_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_subjects_name ON subjects(name)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_notifications_user_id ON notifications(user_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_notifications_sent_at ON notifications(sent_at)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_token ON password_reset_tokens(token)")
 
     conn.commit()
     cursor.close()

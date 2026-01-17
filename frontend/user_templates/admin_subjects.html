@@ -5,7 +5,7 @@
 {% block content %}
 <h2>Available Subjects</h2>
 
-<form method="GET" action="{{ url_for('subjects') }}" class="search-form">
+<form method="GET" action="{{ url_for('admin_subjects') }}" class="search-form">
     <input type="text" name="search" placeholder="Search subjects..."
            value="{{ search }}" class="search-input">
     <button type="submit" class="btn btn-primary">Search</button>
