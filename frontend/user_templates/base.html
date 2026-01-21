@@ -4,7 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="iVd5dAuhjb2Gt71XYHMTO8UZhGNXZ7dQOCWqNO_s4gM" />
-    <title>{% block title %}McMaster Seat Tracker{% endblock %}</title>
+
+    <title>{% block title %}McMaster Seat Tracker - Course Availability Alerts{% endblock %}</title>
+
+    <meta name="description" content="{% block description %}Get instant email notifications when McMaster University courses become available. Track course openings, receive seat alerts, and never miss registration again.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}McMaster seat tracker, McMaster course alerts, McMaster seat alerts, McMaster course availability, McMaster course notification, McMaster Mosaic alerts, course waitlist tracker, McMaster registration help{% endblock %}">
+    <meta name="author" content="Muhammad Hasan">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="{% block og_title %}McMaster Seat Tracker - Never Miss a Course Opening{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Get instant email notifications when McMaster courses become available. Free course tracking and seat alerts for McMaster students.{% endblock %}">
+    <meta property="og:site_name" content="McMaster Seat Tracker">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.url }}">
+    <meta property="twitter:title" content="{% block twitter_title %}McMaster Seat Tracker - Course Availability Alerts{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Track McMaster course availability and get instant seat alerts via email.{% endblock %}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical %}{{ request.url }}{% endblock %}">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block extra_head %}{% endblock %}
 </head>

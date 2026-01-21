@@ -1,12 +1,60 @@
 {% extends "base.html" %}
 
-{% block title %}Welcome - McMaster Seat Tracker{% endblock %}
+{% block title %}McMaster Seat Tracker - Free Course Availability Alerts & Notifications{% endblock %}
+
+{% block description %}Get instant email alerts when McMaster University courses become available. Free course tracker for McMaster students - monitor seat openings, track waitlisted courses, and never miss registration.{% endblock %}
+
+{% block keywords %}McMaster seat tracker, McMaster course alerts, McMaster seat alerts, McMaster course availability, McMaster course notification, McMaster waitlist tracker, McMaster Mosaic alerts, course registration alerts, McMaster seat availability, McMaster course openings{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "McMaster Seat Tracker",
+  "applicationCategory": "EducationalApplication",
+  "description": "Get instant email notifications when McMaster University courses become available. Track course openings and never miss registration.",
+  "url": "{{ request.url_root }}",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CAD"
+  },
+  "operatingSystem": "Web Browser",
+  "creator": {
+    "@type": "Person",
+    "name": "Muhammad Hasan",
+    "url": "https://www.linkedin.com/in/muhammad-hasan-139064379/"
+  },
+  "featureList": [
+    "Real-time course availability monitoring",
+    "Email notifications when courses open",
+    "Support for multiple terms (Winter, Spring, Fall)",
+    "Track up to 2 courses simultaneously",
+    "Subject autocomplete for easy course selection"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "McMaster Seat Tracker",
+  "url": "{{ request.url_root }}",
+  "description": "Course availability tracking service for McMaster University students",
+  "founder": {
+    "@type": "Person",
+    "name": "Muhammad Hasan"
+  }
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="landing-page">
     <div class="hero-section">
-        <h1>Never Miss a Course Opening Again!</h1>
-        <p class="hero-subtitle">Get instant email notifications when your waitlisted courses become available</p>
+        <h1>McMaster Seat Tracker - Free Course Availability Alerts</h1>
+        <p class="hero-subtitle">Get instant email notifications when McMaster University courses become available. Track seat openings, monitor waitlisted courses, and never miss registration again.</p>
 
         <div class="cta-buttons">
             <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Get Started Free</a>
@@ -17,7 +65,7 @@
     <div class="features-grid">
         <div class="feature-card">
             <h3>Track Courses</h3>
-            <p>Monitor up to 3 courses per term and get real-time updates on their availability</p>
+            <p>Monitor up to 2 courses per term and get real-time updates on their availability</p>
         </div>
 
         <div class="feature-card">
@@ -60,6 +108,26 @@
                 <p>Beat the rush and secure your spot</p>
             </div>
         </div>
+    </div>
+
+    <div class="seo-content">
+        <h2>About McMaster Seat Tracker</h2>
+        <p>McMaster Seat Tracker is a free course availability monitoring service designed specifically for McMaster University students. Our automated system checks Mosaic (McMaster's course registration system) continuously and sends you instant email alerts when seats become available in your desired courses.</p>
+
+        <h3>Why Use a Course Seat Tracker?</h3>
+        <p>McMaster courses fill up quickly during registration periods. Instead of manually refreshing Mosaic every few minutes, our seat tracker monitors course availability automatically and notifies you immediately when a spot opens. This gives you the best chance to register for high-demand courses before they fill up again.</p>
+
+        <h3>Features for McMaster Students</h3>
+        <ul class="feature-list">
+            <li><strong>Real-time monitoring:</strong> Continuous checks of McMaster Mosaic course availability</li>
+            <li><strong>Instant email alerts:</strong> Get notified within seconds when a course opens</li>
+            <li><strong>Multiple term support:</strong> Track courses across Winter, Spring, and Fall terms</li>
+            <li><strong>Easy course selection:</strong> Search and select from all McMaster subjects</li>
+            <li><strong>Free service:</strong> No subscription fees or hidden costs</li>
+        </ul>
+
+        <h3>How to Track McMaster Course Seats</h3>
+        <p>Simply create a free account, add the courses you want to track (subject code, course number, and term), and we'll monitor Mosaic for seat availability. When a seat becomes available, you'll receive an email notification with a direct link to register in Mosaic.</p>
     </div>
 
     <div class="cta-bottom">
@@ -171,6 +239,54 @@
 
 .cta-bottom h2 {
     margin-bottom: 2rem;
+}
+
+.seo-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 8px;
+    margin: 4rem 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.seo-content h2 {
+    color: var(--mcmaster-maroon);
+    margin-bottom: 1rem;
+}
+
+.seo-content h3 {
+    color: var(--mcmaster-maroon);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.seo-content p {
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: 1rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.feature-list li {
+    padding: 0.75rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.feature-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--success-green);
+    font-weight: bold;
 }
 </style>
 {% endblock %}

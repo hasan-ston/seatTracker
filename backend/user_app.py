@@ -684,6 +684,66 @@ def admin_subjects():
     return render_template('admin_subjects.html', subjects=subjects_list, search=search)
 
 
+@app.route('/robots.txt')
+def robots_txt():
+    """Serve robots.txt for search engine crawlers"""
+    robots_content = """User-agent: *
+Allow: /
+Allow: /register
+Allow: /login
+Allow: /status
+Disallow: /admin/
+Disallow: /dashboard
+Disallow: /add-watch
+Disallow: /delete-watch
+Disallow: /forgot-password
+Disallow: /reset-password
+
+Sitemap: {}/sitemap.xml
+""".format(request.url_root.rstrip('/'))
+
+    return robots_content, 200, {'Content-Type': 'text/plain'}
+
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    """Generate XML sitemap for search engines"""
+    from datetime import datetime
+
+    base_url = request.url_root.rstrip('/')
+    today = datetime.now().strftime('%Y-%m-%d')
+
+    sitemap_content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>{base_url}/</loc>
+        <lastmod>{today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>{base_url}/register</loc>
+        <lastmod>{today}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>{base_url}/login</loc>
+        <lastmod>{today}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/status</loc>
+        <lastmod>{today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>""".format(base_url=base_url, today=today)
+
+    return sitemap_content, 200, {'Content-Type': 'application/xml'}
+
+
 if __name__ == '__main__':
     print("\nStarting McMaster Seat Tracker...")
     print("   User portal: http://127.0.0.1:5001")
