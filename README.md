@@ -4,4 +4,5 @@ High-level architecture diagram
 
 Production Infrastrucutre
 
-<img width="352" height="576" alt="Screenshot 2026-01-20 at 7 43 37 PM" src="https://github.com/user-attachments/assets/fa48881e-c941-4a3e-a6bd-9be164607504" />
+<img width="351" height="566" alt="Screenshot 2026-01-20 at 7 44 41 PM" src="https://github.com/user-attachments/assets/b74c4079-d577-466f-b4aa-c3552473536c" />
+
