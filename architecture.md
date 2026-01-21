@@ -1,3 +1,5 @@
+# Gunicorn Configuration
+
 I have configured a gunicorn master (PID 249181) that manages 2 gunicorn workers, PID 249184 and PID 249185. Each worker is an instance of the Flask app.
 
 Having 2 workers allows for 2 simultaneous requests.
@@ -8,7 +10,10 @@ Acts as an internal request distributor; after accepting a connection from nginx
 
 Health monitoring: workers periodically check the master using getppid() = 249181. If the master dies, workers exit and systemd restarts the service.
 
+## Request Trace from Worker 249184
+
 Following is an actual request trace from Worker 249184:
+```
 # Worker wakes up as request detected
 pselect6(8, [5 7], NULL, NULL, {tv_sec=60...}) = 1 (in [5])
 
@@ -49,27 +54,22 @@ close(9) = 0
 # Release accept mutex and go back to waiting
 fchmod(6, 001) = 0
 pselect6(8, [5 7], NULL, NULL, {tv_sec=60...}, NULL)
-
+```
 
 To summarize: both workers attempt to acquire the accept mutex. The worker that fails (accept4(...) = -1 with EAGAIN) releases the mutex and goes back to waiting via pselect6(...). The worker that succeeds accepts the connection, processes the request, releases the mutex, and then returns to the waiting state.
 
-Nginx Configuration:
+## Nginx Configuration
 
 Process manager: systemd services
+
 Web server: nginx (reverse proxy)
 
-Benefits:
+### Benefits
 
-SSL/TLS termination handled at nginx.
-
-Static file serving handled by nginx (significantly faster than Flask). Flask workers are freed to handle dynamic workloads such as database queries and scraping logic.
-
-Load distribution across gunicorn workers, with the gunicorn master coordinating which worker processes each request.
-
-Request buffering: nginx receives slow or fragmented client data, buffers the full request, and forwards it to Flask only once complete. This prevents Flask workers from being blocked by long-lived connections (e.g., 30-second uploads).
-
-Security headers enforced at the proxy layer.
-
-Enables scaling to multiple backend servers and avoids a single point of failure. If one worker is busy scraping a course, the other worker continues serving new requests.
-
-DDoS mitigation via rate limiting and per-IP connection limits.
+- SSL/TLS termination handled at nginx.
+- Static file serving handled by nginx (significantly faster than Flask). Flask workers are freed to handle dynamic workloads such as database queries and scraping logic.
+- Load distribution across gunicorn workers, with the gunicorn master coordinating which worker processes each request.
+- Request buffering: nginx receives slow or fragmented client data, buffers the full request, and forwards it to Flask only once complete. This prevents Flask workers from being blocked by long-lived connections.
+- Security headers enforced at the proxy layer.
+- Enables scaling to multiple backend servers and avoids a single point of failure. If one worker is busy scraping a course, the other worker continues serving new requests.
+- DDoS mitigation via rate limiting and per-IP connection limits.
