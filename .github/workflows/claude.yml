@@ -48,7 +48,7 @@ jobs:
           # or https://code.claude.com/docs/en/cli-reference for available options
           # claude_args: '--allowed-tools Bash(gh pr:*)'
 
-          custom_instructions: |
+          settings: |
             This project is already setup on an AWS EC2 instance. It is already configured and running on the link https://macseats.duckdns.org/. To access the admin page, you have the credentials provided to you in the .env file.
             
 
