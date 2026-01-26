@@ -41,15 +41,15 @@ jobs:
             actions: read
 
           # Optional: Give a custom prompt to Claude. If this is not specified, Claude will perform the instructions specified in the comment that tagged it.
-          # prompt: 'Update the pull request description to include a summary of changes.'
+          prompt: |
+            Context: This project is already setup on an AWS EC2 instance and is running at https://macseats.duckdns.org/. Admin credentials are in the .env file.
+
+            Task: Please address the issue or comment that tagged you.
 
           # Optional: Add claude_args to customize behavior and configuration
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
           # claude_args: '--allowed-tools Bash(gh pr:*)'
-
-          settings: |
-            This project is already setup on an AWS EC2 instance. It is already configured and running on the link https://macseats.duckdns.org/. To access the admin page, you have the credentials provided to you in the .env file.
             
 
 
