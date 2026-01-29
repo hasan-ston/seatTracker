@@ -3,12 +3,15 @@ Notification module - handles sending emails and SMS
 """
 
 import os
+import logging
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 def send_email(to_email: str, subject: str, body: str) -> bool:
@@ -30,7 +33,7 @@ def send_email(to_email: str, subject: str, body: str) -> bool:
     from_email = os.getenv('FROM_EMAIL', smtp_username)
 
     if not smtp_username or not smtp_password:
-        print("Email not configured (missing SMTP credentials in .env)")
+        logger.warning("Email not configured (missing SMTP credentials in .env)")
         return False
 
     try:
@@ -47,11 +50,17 @@ def send_email(to_email: str, subject: str, body: str) -> bool:
             server.login(smtp_username, smtp_password)
             server.send_message(msg)
 
-        print(f"Email sent to {to_email}")
+        logger.info(f"Email sent to {to_email}")
         return True
 
+    except smtplib.SMTPAuthenticationError as e:
+        logger.error(f"SMTP authentication failed: {e}")
+        return False
+    except smtplib.SMTPException as e:
+        logger.error(f"SMTP error sending email: {e}")
+        return False
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        logger.error(f"Failed to send email: {e}")
         return False
 
 
@@ -110,14 +119,16 @@ def send_sms(phone: str, message: str) -> bool:
 
     Returns:
         True if sent successfully, False otherwise
+    
+    TODO: Implement SMS functionality with Twilio or similar service
     """
-    print(f"SMS to {phone}: {message}")
-    print(f"SMS not implemented yet")
+    logger.warning(f"SMS functionality not implemented. Would send to {phone}: {message}")
     return False
 
 
 if __name__ == "__main__":
-    print("Testing email notification...")
+    logging.basicConfig(level=logging.INFO)
+    logger.info("Testing email notification...")
     send_course_open_notification(
         email="test@example.com",
         subject="COMPSCI",

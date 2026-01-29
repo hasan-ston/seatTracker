@@ -4,11 +4,14 @@ Initialize database schema
 
 import sqlite3
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 DB_PATH = os.getenv("DB_PATH", "database/courses.db")
 
 def init_database():
-    print("Creating database schema...")
+    logger.info("Creating database schema...")
 
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -18,9 +21,23 @@ def init_database():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT UNIQUE NOT NULL,
             phone TEXT,
+            password_hash TEXT,
+            role TEXT DEFAULT 'user',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
+
+    # Migration: Add password_hash and role columns if they don't exist
+    cursor.execute("PRAGMA table_info(users)")
+    columns = [col[1] for col in cursor.fetchall()]
+    
+    if 'password_hash' not in columns:
+        logger.info("Migrating users table: adding password_hash column")
+        cursor.execute("ALTER TABLE users ADD COLUMN password_hash TEXT")
+    
+    if 'role' not in columns:
+        logger.info("Migrating users table: adding role column")
+        cursor.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user'")
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS subjects (
@@ -97,7 +114,8 @@ def init_database():
     cursor.close()
     conn.close()
 
-    print("Database created successfully!")
+    logger.info("Database created successfully!")
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     init_database()

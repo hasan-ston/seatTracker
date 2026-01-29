@@ -5,6 +5,7 @@ Main scraper loop - checks all active course watches
 import sys
 import os
 import time
+import logging
 from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -19,6 +20,19 @@ from database.db_helper import (
     cleanup_old_records
 )
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# Configuration constants
+DEFAULT_SCRAPE_INTERVAL_MINUTES = 5
+BROWSER_RESTART_CHECK_COUNT = 2880  # ~12 hours at 15 sec intervals
+COURSE_CHECK_DELAY_SECONDS = 2
+CLEANUP_RETENTION_DAYS = 4
+
 
 def send_notification(user_email, user_phone, course_info, status):
     """
@@ -30,10 +44,7 @@ def send_notification(user_email, user_phone, course_info, status):
         course_info: Dict with course details
         status: New status
     """
-    print(f"\nSENDING NOTIFICATION:")
-    print(f"   To: {user_email}")
-    print(f"   Course: {course_info['subject']} {course_info['course_number']}")
-    print(f"   Status: {status.upper()}")
+    logger.info(f"Sending notification to {user_email} for {course_info['subject']} {course_info['course_number']} - Status: {status.upper()}")
 
     if status == 'open':
         send_course_open_notification(
@@ -59,22 +70,21 @@ def scrape_all_courses(browser=None, page=None):
     Returns:
         tuple: (browser, page) for reuse in next iteration
     """
-    print("\n" + "=" * 70)
-    print(f"Starting scraper run at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("=" * 70)
+    logger.info("=" * 70)
+    logger.info(f"Starting scraper run at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info("=" * 70)
 
     watches = get_active_course_watches()
 
     if not watches:
-        print("\nNo active course watches found in database")
-        print("   Add some watches first!")
+        logger.info("No active course watches found in database")
         return browser, page
 
-    print(f"\nFound {len(watches)} active course watch(es)")
+    logger.info(f"Found {len(watches)} active course watch(es)")
 
     # Only create browser if not provided
     if browser is None:
-        print("\nLaunching browser...")
+        logger.info("Launching browser...")
         p = sync_playwright().start()
         browser = p.chromium.launch(
             headless=True,
@@ -82,18 +92,18 @@ def scrape_all_courses(browser=None, page=None):
         )
         page = browser.new_page()
 
-        print("Logging in to Mosaic...")
+        logger.info("Logging in to Mosaic...")
         try:
             login_to_mosaic(page)
-            print("Logged in successfully")
+            logger.info("Logged in successfully")
         except Exception as e:
-            print(f"Login failed: {e}")
+            logger.error(f"Login failed: {e}")
             browser.close()
             return None, None
     else:
-        print("\nReusing existing browser session...")
+        logger.debug("Reusing existing browser session...")
 
-    print(f"\nChecking {len(watches)} course(s)...")
+    logger.info(f"Checking {len(watches)} course(s)...")
     checked = 0
     status_changed = 0
     errors = 0
@@ -115,7 +125,7 @@ def scrape_all_courses(browser=None, page=None):
 
             if changed:
                 status_changed += 1
-                print(f"Status changed: {old_status} -> {new_status}")
+                logger.info(f"Status changed: {old_status} -> {new_status}")
 
                 if new_status == 'open' and watch['notify_on_open']:
                     send_notification(
@@ -132,40 +142,40 @@ def scrape_all_courses(browser=None, page=None):
 
             checked += 1
 
-            time.sleep(2)
+            time.sleep(COURSE_CHECK_DELAY_SECONDS)
 
         except Exception as e:
             errors += 1
-            print(f"Error checking {watch['subject']} {watch['course_number']}: {e}")
+            logger.error(f"Error checking {watch['subject']} {watch['course_number']}: {e}")
             continue
 
     # Cleanup old records to prevent database growth
-    cleanup_result = cleanup_old_records(retention_days=4)
+    cleanup_result = cleanup_old_records(retention_days=CLEANUP_RETENTION_DAYS)
 
-    print("\n" + "=" * 70)
-    print("SUMMARY")
-    print("=" * 70)
-    print(f"Courses checked: {checked}/{len(watches)}")
-    print(f"Status changes: {status_changed}")
-    print(f"Errors: {errors}")
+    logger.info("=" * 70)
+    logger.info("SUMMARY")
+    logger.info("=" * 70)
+    logger.info(f"Courses checked: {checked}/{len(watches)}")
+    logger.info(f"Status changes: {status_changed}")
+    logger.info(f"Errors: {errors}")
     if cleanup_result['notifications_deleted'] > 0:
-        print(f"Cleaned up: {cleanup_result['notifications_deleted']} old notifications")
-    print(f"Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("=" * 70)
+        logger.info(f"Cleaned up: {cleanup_result['notifications_deleted']} old notifications")
+    logger.info(f"Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info("=" * 70)
 
     return browser, page
 
 
-def run_continuous(interval_minutes=5):
+def run_continuous(interval_minutes=DEFAULT_SCRAPE_INTERVAL_MINUTES):
     """
     Run scraper continuously with specified interval
 
     Args:
         interval_minutes: Minutes between scraper runs
     """
-    print(f"\nRunning in continuous mode (every {interval_minutes} minutes)")
-    print("   Browser will restart every 2880 checks (~12 hours) to prevent memory buildup")
-    print("   Press Ctrl+C to stop")
+    logger.info(f"Running in continuous mode (every {interval_minutes} minutes)")
+    logger.info(f"Browser will restart every {BROWSER_RESTART_CHECK_COUNT} checks (~12 hours) to prevent memory buildup")
+    logger.info("Press Ctrl+C to stop")
 
     browser = None
     page = None
@@ -174,9 +184,9 @@ def run_continuous(interval_minutes=5):
     try:
         while True:
             try:
-                # Restart browser every 2880 checks (~12 hours at 15 sec intervals)
-                if check_count > 0 and check_count % 2880 == 0:
-                    print(f"\n[MEMORY MANAGEMENT] Restarting browser after {check_count} checks...")
+                # Restart browser periodically to prevent memory buildup
+                if check_count > 0 and check_count % BROWSER_RESTART_CHECK_COUNT == 0:
+                    logger.info(f"[MEMORY MANAGEMENT] Restarting browser after {check_count} checks...")
                     if browser is not None:
                         browser.close()
                     browser = None
@@ -185,28 +195,28 @@ def run_continuous(interval_minutes=5):
                 browser, page = scrape_all_courses(browser, page)
                 check_count += 1
 
-                print(f"\nWaiting {interval_minutes} minutes until next check...")
+                logger.info(f"Waiting {interval_minutes} minutes until next check...")
                 time.sleep(interval_minutes * 60)
             except Exception as e:
-                print(f"\nUnexpected error: {e}")
-                print(f"   Retrying in {interval_minutes} minutes...")
+                logger.error(f"Unexpected error: {e}")
+                logger.info(f"Retrying in {interval_minutes} minutes...")
                 time.sleep(interval_minutes * 60)
     except KeyboardInterrupt:
-        print("\n\nStopping scraper...")
+        logger.info("Stopping scraper...")
     finally:
         # Clean up browser when stopping
         if browser is not None:
-            print("Closing browser...")
+            logger.info("Closing browser...")
             browser.close()
-            print("Browser closed")
+            logger.info("Browser closed")
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--continuous":
-        interval = float(sys.argv[2]) if len(sys.argv) > 2 else 5
+        interval = float(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_SCRAPE_INTERVAL_MINUTES
         run_continuous(interval)
     else:
         browser, page = scrape_all_courses()
         if browser is not None:
-            print("\nClosing browser...")
+            logger.info("Closing browser...")
             browser.close()

@@ -1,31 +1,47 @@
 from playwright.sync_api import sync_playwright
 import time
+import logging
 from datetime import datetime
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
+logger = logging.getLogger(__name__)
+
+# Configuration constants
+LOGIN_TIMEOUT_MS = 10000
+SEARCH_TIMEOUT_MS = 15000
+PAGE_LOAD_TIMEOUT_MS = 30000
+STATUS_INDICATOR_TIMEOUT_MS = 5000
+PAGE_WAIT_SECONDS = 1
+RETRY_WAIT_SECONDS = 5
+BROWSER_CLOSE_WAIT_SECONDS = 2
+LEGEND_ICON_COUNT = 3  # Open, Closed, Wait List icons in legend
+
 def login_to_mosaic(page):
 
     username = os.getenv('MOSAIC_USERNAME')
     password = os.getenv('MOSAIC_PASSWORD')
     
+    if not username or not password:
+        raise ValueError("MOSAIC_USERNAME and MOSAIC_PASSWORD must be set in environment")
+    
     page.goto('https://csprd.mcmaster.ca/psp/prcsprd/')
-    page.wait_for_selector('input[name="userid"]', timeout=10000)
+    page.wait_for_selector('input[name="userid"]', timeout=LOGIN_TIMEOUT_MS)
 
     page.fill('input[name="userid"]', username)
     page.fill('input[name="pwd"]', password)
 
     page.click('input[type="submit"][value="Sign In"]')
-    page.wait_for_url('**/EMPLOYEE/SA/**', timeout=15000)
+    page.wait_for_url('**/EMPLOYEE/SA/**', timeout=SEARCH_TIMEOUT_MS)
 
 def search_for_course(page, subject, course_number, term):
     search_url = "https://csprd.mcmaster.ca/psc/prcsprd/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.CLASS_SEARCH.GBL"
     page.goto(search_url)
-    page.wait_for_load_state('networkidle', timeout=30000)
+    page.wait_for_load_state('networkidle', timeout=PAGE_LOAD_TIMEOUT_MS)
 
-    time.sleep(1)
+    time.sleep(PAGE_WAIT_SECONDS)
 
     term_dropdown = '#CLASS_SRCH_WRK2_STRM\\$35\\$'
 
@@ -41,7 +57,7 @@ def search_for_course(page, subject, course_number, term):
     page.fill('#SSR_CLSRCH_WRK_CATALOG_NBR\\$1', course_number)
     page.click('#CLASS_SRCH_WRK2_SSR_PB_CLASS_SRCH')
 
-    page.wait_for_selector('img[src*="STATUS"]', timeout=5000)
+    page.wait_for_selector('img[src*="STATUS"]', timeout=STATUS_INDICATOR_TIMEOUT_MS)
 
 def get_course_status(page):
     """
@@ -57,11 +73,11 @@ def get_course_status(page):
     for frame in frames:
         if frame.name == 'TargetContent':
             working_frame = frame
-            print("   Checking inside iframe")
+            logger.debug("Checking inside iframe")
             break
 
     # Wait for results to load
-    time.sleep(2)
+    time.sleep(PAGE_WAIT_SECONDS * 2)
     
     # More specific selector: look for status images within table rows
     # This excludes the legend at the top
@@ -72,28 +88,28 @@ def get_course_status(page):
         page_text = working_frame.locator('body').inner_text()
 
         if 'No classes were found' in page_text or 'no results' in page_text.lower():
-            print("   Page says: 'No classes were found'")
+            logger.debug("Page says: 'No classes were found'")
             return {'status': 'not_found'}
 
         if 'INNOVATE' in page_text or 'class section' in page_text.lower():
-            print("   Found course text, waiting longer...")
-            time.sleep(5)
+            logger.debug("Found course text, waiting longer...")
+            time.sleep(RETRY_WAIT_SECONDS)
 
             count = status_locator.count()
-            print(f"   Retry: Found {count} status indicator(s)")
+            logger.debug(f"Retry: Found {count} status indicator(s)")
 
             if count == 0:
-                print("   Still no status found")
-                print(f"\n   Page content preview:\n{page_text[:500]}...\n")
+                logger.debug("Still no status found")
+                logger.debug(f"Page content preview: {page_text[:500]}...")
                 return {'status': 'not_found'}
         else:
-            print("   Not on results page")
+            logger.debug("Not on results page")
             return {'status': 'not_found'}
 
     # Skip first 3 icons (legend) and only count actual course sections
     # The legend always shows: Open, Closed, Wait List icons
-    actual_sections_count = max(0, count - 3)
-    print(f"   Found {count} status indicators (3 legend + {actual_sections_count} actual sections)")
+    actual_sections_count = max(0, count - LEGEND_ICON_COUNT)
+    logger.debug(f"Found {count} status indicators ({LEGEND_ICON_COUNT} legend + {actual_sections_count} actual sections)")
 
     status_counts = {
         'open': 0,
@@ -108,13 +124,13 @@ def get_course_status(page):
     }
 
     # Count each status type, skipping the first 3 (legend icons)
-    for i in range(3, count):
+    for i in range(LEGEND_ICON_COUNT, count):
         alt_text = status_locator.nth(i).get_attribute('alt')
         status = status_map.get(alt_text, 'unknown')
         if status in status_counts:
             status_counts[status] += 1
 
-    print(f"   Status breakdown (excluding legend): {status_counts['open']} open, {status_counts['closed']} closed, {status_counts['waitlist']} waitlist")
+    logger.debug(f"Status breakdown (excluding legend): {status_counts['open']} open, {status_counts['closed']} closed, {status_counts['waitlist']} waitlist")
     
     if status_counts['open'] > 0:
         overall_status = 'open'
@@ -167,18 +183,20 @@ def check_course_status(subject, course_number, term, browser=None, page=None):
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
 
-        print(f"   {subject} {course_number}: {result['status'].upper()}")
+        logger.info(f"{subject} {course_number}: {result['status'].upper()}")
 
         return result
 
     finally:
         if close_browser:
-            time.sleep(2)
+            time.sleep(BROWSER_CLOSE_WAIT_SECONDS)
             browser.close()
 
 
 if __name__ == "__main__":
     import sys
+    
+    logging.basicConfig(level=logging.INFO)
 
     if len(sys.argv) >= 4:
         subject = sys.argv[1]
@@ -189,7 +207,7 @@ if __name__ == "__main__":
         course_number = "1PL3"
         term = "2026 Winter"
 
-    print(f"Checking {subject} {course_number} ({term})...")
+    logger.info(f"Checking {subject} {course_number} ({term})...")
     result = check_course_status(subject, course_number, term)
-    print(f"Final Status: {result['status'].upper()}")
+    logger.info(f"Final Status: {result['status'].upper()}")
     

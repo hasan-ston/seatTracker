@@ -4,15 +4,28 @@ Database helper functions for seat tracker
 
 import sqlite3
 import os
+import logging
+from contextlib import contextmanager
 from typing import List, Dict, Optional
 from datetime import datetime
 
+logger = logging.getLogger(__name__)
 
 DB_PATH = os.getenv("DB_PATH", "database/courses.db")
 
 
+@contextmanager
+def get_db_connection():
+    """Get database connection with context manager for proper cleanup"""
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        yield conn
+    finally:
+        conn.close()
+
+
 def get_connection():
-    """Get database connection"""
+    """Get database connection (legacy function for backwards compatibility)"""
     return sqlite3.connect(DB_PATH)
 
 

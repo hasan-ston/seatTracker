@@ -4,6 +4,7 @@ Flask web application for McMaster Seat Tracker (User + Admin)
 
 import sys
 import os
+import logging
 from dotenv import load_dotenv
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -22,10 +23,26 @@ from database.db_helper import (
     get_connection
 )
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 app = Flask(__name__,
             template_folder='../frontend/user_templates',
             static_folder='../frontend/static')
-app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
+
+# Secret key must be set in production - fail fast if not configured
+secret_key = os.getenv('SECRET_KEY')
+if not secret_key:
+    if os.getenv('FLASK_ENV') == 'development':
+        secret_key = 'dev-secret-key-for-local-development-only'
+        logger.warning("Using development secret key. Set SECRET_KEY in production!")
+    else:
+        raise RuntimeError("SECRET_KEY environment variable must be set in production")
+app.secret_key = secret_key
 
 MAX_WATCHES_PER_USER = 2
 
@@ -745,8 +762,11 @@ def sitemap_xml():
 
 
 if __name__ == '__main__':
-    print("\nStarting McMaster Seat Tracker...")
-    print("   User portal: http://127.0.0.1:5001")
-    print("   Admin panel: http://127.0.0.1:5001/admin/login")
-    print("   Press Ctrl+C to stop\n")
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    logger.info("Starting McMaster Seat Tracker...")
+    logger.info("   User portal: http://127.0.0.1:5001")
+    logger.info("   Admin panel: http://127.0.0.1:5001/admin/login")
+    logger.info("   Press Ctrl+C to stop")
+    
+    # Only enable debug mode in development environment
+    debug_mode = os.getenv('FLASK_ENV') == 'development'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5001)
