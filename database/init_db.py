@@ -16,28 +16,36 @@ def init_database():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT UNIQUE NOT NULL,
-            phone TEXT,
-            password_hash TEXT,
-            role TEXT DEFAULT 'user',
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    """)
+    # Check if users table exists first (for migration purposes)
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users'")
+    users_table_exists = cursor.fetchone() is not None
 
-    # Migration: Add password_hash and role columns if they don't exist
-    cursor.execute("PRAGMA table_info(users)")
-    columns = [col[1] for col in cursor.fetchall()]
-    
-    if 'password_hash' not in columns:
-        logger.info("Migrating users table: adding password_hash column")
-        cursor.execute("ALTER TABLE users ADD COLUMN password_hash TEXT")
-    
-    if 'role' not in columns:
-        logger.info("Migrating users table: adding role column")
-        cursor.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user'")
+    if users_table_exists:
+        # Migration: Add password_hash and role columns if they don't exist
+        cursor.execute("PRAGMA table_info(users)")
+        columns = [col[1] for col in cursor.fetchall()]
+        
+        if 'password_hash' not in columns:
+            logger.info("Migrating users table: adding password_hash column")
+            cursor.execute("ALTER TABLE users ADD COLUMN password_hash TEXT")
+        
+        if 'role' not in columns:
+            logger.info("Migrating users table: adding role column")
+            cursor.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user'")
+        
+        conn.commit()
+    else:
+        # Create users table with all columns
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT UNIQUE NOT NULL,
+                phone TEXT,
+                password_hash TEXT,
+                role TEXT DEFAULT 'user',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS subjects (

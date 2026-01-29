@@ -16,7 +16,15 @@ DB_PATH = os.getenv("DB_PATH", "database/courses.db")
 
 @contextmanager
 def get_db_connection():
-    """Get database connection with context manager for proper cleanup"""
+    """
+    Get database connection with context manager for proper cleanup.
+    
+    Recommended for new code. Usage:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            # ... do database operations
+            conn.commit()
+    """
     conn = sqlite3.connect(DB_PATH)
     try:
         yield conn
@@ -25,7 +33,12 @@ def get_db_connection():
 
 
 def get_connection():
-    """Get database connection (legacy function for backwards compatibility)"""
+    """
+    Get database connection (legacy function for backwards compatibility).
+    
+    Note: Caller is responsible for closing the connection.
+    For new code, prefer using get_db_connection() context manager.
+    """
     return sqlite3.connect(DB_PATH)
 
 
