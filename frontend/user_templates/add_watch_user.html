@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
             fetchSuggestions(this.value.trim());
-        }, 150);
+        }, 300);
     });
 
     subjectInput.addEventListener('keydown', function(e) {

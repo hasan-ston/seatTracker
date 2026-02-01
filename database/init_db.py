@@ -18,6 +18,8 @@ def init_database():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT UNIQUE NOT NULL,
             phone TEXT,
+            password_hash TEXT,
+            role TEXT DEFAULT 'user',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
@@ -88,6 +90,7 @@ def init_database():
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_course_watches_user_id ON course_watches(user_id)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_course_watches_active ON course_watches(active)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_course_watches_course_id ON course_watches(course_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_subjects_code ON subjects(code)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_subjects_name ON subjects(name)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_notifications_user_id ON notifications(user_id)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_notifications_sent_at ON notifications(sent_at)")

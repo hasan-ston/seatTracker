@@ -27,6 +27,9 @@ app = Flask(__name__,
             static_folder='../frontend/static')
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
+# Cache static files for 1 week to improve load times
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 604800  # 7 days in seconds
+
 MAX_WATCHES_PER_USER = 2
 
 # Admin credentials
