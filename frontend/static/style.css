@@ -523,7 +523,8 @@ footer .footer-links a:hover {
     color: var(--gray-700);
 }
 
-/* Welcome Animation Styles */
+/* Welcome Animation Styles - Optimized for faster page load */
+/* Reduced from 0.6s to 0.3s for better perceived performance */
 .welcome-overlay {
     position: fixed;
     top: 0;
