@@ -6,14 +6,57 @@ import sqlite3
 import os
 from typing import List, Dict, Optional
 from datetime import datetime
+from contextlib import contextmanager
+import threading
 
 
 DB_PATH = os.getenv("DB_PATH", "database/courses.db")
 
+# Thread-local storage for database connections
+_thread_local = threading.local()
+
 
 def get_connection():
-    """Get database connection"""
-    return sqlite3.connect(DB_PATH)
+    """
+    Get database connection with connection reuse per thread.
+    Each thread maintains its own connection to avoid SQLite threading issues.
+    """
+    if not hasattr(_thread_local, 'connection') or _thread_local.connection is None:
+        _thread_local.connection = sqlite3.connect(DB_PATH, check_same_thread=False)
+        # Enable connection optimizations
+        _thread_local.connection.execute("PRAGMA journal_mode=WAL")
+        _thread_local.connection.execute("PRAGMA synchronous=NORMAL")
+    return _thread_local.connection
+
+
+@contextmanager
+def get_db_cursor():
+    """
+    Context manager for database operations.
+    Automatically handles connection, cursor, commit, and cleanup.
+    
+    Usage:
+        with get_db_cursor() as cursor:
+            cursor.execute("SELECT * FROM users")
+            rows = cursor.fetchall()
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+    try:
+        yield cursor
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        cursor.close()
+
+
+def close_connection():
+    """Close the thread-local database connection if it exists."""
+    if hasattr(_thread_local, 'connection') and _thread_local.connection is not None:
+        _thread_local.connection.close()
+        _thread_local.connection = None
 
 
 def get_active_course_watches() -> List[Dict]:
@@ -25,36 +68,33 @@ def get_active_course_watches() -> List[Dict]:
     """
     conn = get_connection()
     conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
+    
+    with get_db_cursor() as cursor:
+        query = """
+            SELECT
+                cw.id as watch_id,
+                cw.user_id,
+                cw.course_id,
+                cw.status as current_status,
+                cw.notify_on_open,
+                cw.last_checked,
+                c.subject,
+                c.course_number,
+                c.course_name,
+                c.term,
+                u.email,
+                u.phone
+            FROM course_watches cw
+            JOIN courses c ON cw.course_id = c.id
+            JOIN users u ON cw.user_id = u.id
+            WHERE cw.active = 1
+            ORDER BY cw.last_checked ASC NULLS FIRST
+        """
 
-    query = """
-        SELECT
-            cw.id as watch_id,
-            cw.user_id,
-            cw.course_id,
-            cw.status as current_status,
-            cw.notify_on_open,
-            cw.last_checked,
-            c.subject,
-            c.course_number,
-            c.course_name,
-            c.term,
-            u.email,
-            u.phone
-        FROM course_watches cw
-        JOIN courses c ON cw.course_id = c.id
-        JOIN users u ON cw.user_id = u.id
-        WHERE cw.active = 1
-        ORDER BY cw.last_checked ASC NULLS FIRST
-    """
+        cursor.execute(query)
+        rows = cursor.fetchall()
 
-    cursor.execute(query)
-    rows = cursor.fetchall()
-
-    watches = [dict(row) for row in rows]
-
-    cursor.close()
-    conn.close()
+        watches = [dict(row) for row in rows]
 
     return watches
 
@@ -70,30 +110,21 @@ def update_course_watch_status(watch_id: int, new_status: str) -> bool:
     Returns:
         True if status changed, False if same
     """
-    conn = get_connection()
-    cursor = conn.cursor()
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT status FROM course_watches WHERE id = ?", (watch_id,))
+        result = cursor.fetchone()
 
-    cursor.execute("SELECT status FROM course_watches WHERE id = ?", (watch_id,))
-    result = cursor.fetchone()
+        if not result:
+            return False
 
-    if not result:
-        cursor.close()
-        conn.close()
-        return False
+        current_status = result[0]
+        status_changed = current_status != new_status
 
-    current_status = result[0]
-
-    status_changed = current_status != new_status
-
-    cursor.execute("""
-        UPDATE course_watches
-        SET status = ?, last_checked = ?
-        WHERE id = ?
-    """, (new_status, datetime.now(), watch_id))
-
-    conn.commit()
-    cursor.close()
-    conn.close()
+        cursor.execute("""
+            UPDATE course_watches
+            SET status = ?, last_checked = ?
+            WHERE id = ?
+        """, (new_status, datetime.now(), watch_id))
 
     return status_changed
 
@@ -107,17 +138,11 @@ def create_notification(user_id: int, course_watch_id: int, notification_type: s
         course_watch_id: Course watch ID
         notification_type: Type of notification ('email', 'sms', 'both')
     """
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        INSERT INTO notifications (user_id, course_watch_id, notification_type)
-        VALUES (?, ?, ?)
-    """, (user_id, course_watch_id, notification_type))
-
-    conn.commit()
-    cursor.close()
-    conn.close()
+    with get_db_cursor() as cursor:
+        cursor.execute("""
+            INSERT INTO notifications (user_id, course_watch_id, notification_type)
+            VALUES (?, ?, ?)
+        """, (user_id, course_watch_id, notification_type))
 
 
 def get_or_create_course(subject: str, course_number: str, term: str, course_name: Optional[str] = None) -> int:
@@ -133,28 +158,22 @@ def get_or_create_course(subject: str, course_number: str, term: str, course_nam
     Returns:
         Course ID
     """
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        SELECT id FROM courses
-        WHERE subject = ? AND course_number = ? AND term = ?
-    """, (subject, course_number, term))
-
-    result = cursor.fetchone()
-
-    if result:
-        course_id = result[0]
-    else:
+    with get_db_cursor() as cursor:
         cursor.execute("""
-            INSERT INTO courses (subject, course_number, course_name, term)
-            VALUES (?, ?, ?, ?)
-        """, (subject, course_number, course_name, term))
-        course_id = cursor.lastrowid
-        conn.commit()
+            SELECT id FROM courses
+            WHERE subject = ? AND course_number = ? AND term = ?
+        """, (subject, course_number, term))
 
-    cursor.close()
-    conn.close()
+        result = cursor.fetchone()
+
+        if result:
+            course_id = result[0]
+        else:
+            cursor.execute("""
+                INSERT INTO courses (subject, course_number, course_name, term)
+                VALUES (?, ?, ?, ?)
+            """, (subject, course_number, course_name, term))
+            course_id = cursor.lastrowid
 
     return course_id
 
@@ -170,24 +189,18 @@ def get_or_create_user(email: str, phone: Optional[str] = None) -> int:
     Returns:
         User ID
     """
-    conn = get_connection()
-    cursor = conn.cursor()
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT id FROM users WHERE email = ?", (email,))
+        result = cursor.fetchone()
 
-    cursor.execute("SELECT id FROM users WHERE email = ?", (email,))
-    result = cursor.fetchone()
-
-    if result:
-        user_id = result[0]
-    else:
-        cursor.execute("""
-            INSERT INTO users (email, phone)
-            VALUES (?, ?)
-        """, (email, phone))
-        user_id = cursor.lastrowid
-        conn.commit()
-
-    cursor.close()
-    conn.close()
+        if result:
+            user_id = result[0]
+        else:
+            cursor.execute("""
+                INSERT INTO users (email, phone)
+                VALUES (?, ?)
+            """, (email, phone))
+            user_id = cursor.lastrowid
 
     return user_id
 
@@ -202,26 +215,20 @@ def cleanup_old_records(retention_days: int = 4) -> dict:
     Returns:
         Dict with counts of deleted records
     """
-    conn = get_connection()
-    cursor = conn.cursor()
+    with get_db_cursor() as cursor:
+        # Delete old notifications records
+        cursor.execute("""
+            DELETE FROM notifications
+            WHERE sent_at < datetime('now', ?)
+        """, (f'-{retention_days} days',))
+        notifications_deleted = cursor.rowcount
 
-    # Delete old notifications records
-    cursor.execute("""
-        DELETE FROM notifications
-        WHERE sent_at < datetime('now', ?)
-    """, (f'-{retention_days} days',))
-    notifications_deleted = cursor.rowcount
-
-    # Delete expired or used password reset tokens
-    cursor.execute("""
-        DELETE FROM password_reset_tokens
-        WHERE used = 1 OR expires_at < datetime('now')
-    """)
-    tokens_deleted = cursor.rowcount
-
-    conn.commit()
-    cursor.close()
-    conn.close()
+        # Delete expired or used password reset tokens
+        cursor.execute("""
+            DELETE FROM password_reset_tokens
+            WHERE used = 1 OR expires_at < datetime('now')
+        """)
+        tokens_deleted = cursor.rowcount
 
     return {
         'notifications_deleted': notifications_deleted,
@@ -241,17 +248,12 @@ def create_course_watch(user_id: int, course_id: int, notify_on_open: bool = Tru
     Returns:
         Course watch ID
     """
-    conn = get_connection()
-    cursor = conn.cursor()
+    with get_db_cursor() as cursor:
+        cursor.execute("""
+            INSERT INTO course_watches (user_id, course_id, notify_on_open)
+            VALUES (?, ?, ?)
+        """, (user_id, course_id, notify_on_open))
 
-    cursor.execute("""
-        INSERT INTO course_watches (user_id, course_id, notify_on_open)
-        VALUES (?, ?, ?)
-    """, (user_id, course_id, notify_on_open))
-
-    watch_id = cursor.lastrowid
-    conn.commit()
-    cursor.close()
-    conn.close()
+        watch_id = cursor.lastrowid
 
     return watch_id

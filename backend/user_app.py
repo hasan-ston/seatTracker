@@ -19,7 +19,8 @@ from database.db_helper import (
     get_or_create_course,
     create_course_watch,
     get_active_course_watches,
-    get_connection
+    get_connection,
+    get_db_cursor
 )
 
 app = Flask(__name__,
@@ -85,26 +86,19 @@ def register():
             flash('Password must be at least 6 characters', 'error')
             return redirect(url_for('register'))
 
-        conn = get_connection()
-        cursor = conn.cursor()
+        with get_db_cursor() as cursor:
+            cursor.execute('SELECT id FROM users WHERE email = ?', (email,))
+            if cursor.fetchone():
+                flash('Email already registered', 'error')
+                return redirect(url_for('register'))
 
-        cursor.execute('SELECT id FROM users WHERE email = ?', (email,))
-        if cursor.fetchone():
-            flash('Email already registered', 'error')
-            cursor.close()
-            conn.close()
-            return redirect(url_for('register'))
+            password_hash = generate_password_hash(password)
+            cursor.execute("""
+                INSERT INTO users (email, phone, password_hash, role)
+                VALUES (?, ?, ?, 'user')
+            """, (email, phone, password_hash))
 
-        password_hash = generate_password_hash(password)
-        cursor.execute("""
-            INSERT INTO users (email, phone, password_hash, role)
-            VALUES (?, ?, ?, 'user')
-        """, (email, phone, password_hash))
-
-        conn.commit()
-        user_id = cursor.lastrowid
-        cursor.close()
-        conn.close()
+            user_id = cursor.lastrowid
 
         session['user_id'] = user_id
         session['email'] = email
@@ -127,13 +121,9 @@ def login():
             flash('Email and password are required', 'error')
             return redirect(url_for('login'))
 
-        conn = get_connection()
-        cursor = conn.cursor()
-
-        cursor.execute('SELECT id, email, password_hash, role FROM users WHERE email = ?', (email,))
-        user = cursor.fetchone()
-        cursor.close()
-        conn.close()
+        with get_db_cursor() as cursor:
+            cursor.execute('SELECT id, email, password_hash, role FROM users WHERE email = ?', (email,))
+            user = cursor.fetchone()
 
         if not user or not user[2]:
             flash('Invalid email or password', 'error')
