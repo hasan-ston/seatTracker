@@ -25,9 +25,9 @@ def send_email(to_email: str, subject: str, body: str) -> bool:
     """
     smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
     smtp_port = int(os.getenv('SMTP_PORT', '587'))
-    smtp_username = os.getenv('SMTP_USERNAME')
-    smtp_password = os.getenv('SMTP_PASSWORD')
-    from_email = os.getenv('FROM_EMAIL', smtp_username)
+    smtp_username = os.getenv('SMTP_USERNAME') or os.getenv('EMAIL_FROM')
+    smtp_password = os.getenv('SMTP_PASSWORD') or os.getenv('EMAIL_PASSWORD')
+    from_email = os.getenv('FROM_EMAIL') or os.getenv('EMAIL_FROM') or smtp_username
 
     if not smtp_username or not smtp_password:
         print("Email not configured (missing SMTP credentials in .env)")

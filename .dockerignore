@@ -1,0 +1,67 @@
+# Git
+.git
+.gitignore
+.github
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Database (will be mounted as volume)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+__pycache__/
+venv/
+.venv/
+env/
+ENV/
+
+# Playwright
+.playwright/
+
+# IDEs
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.pid
+
+# Documentation
+README.md
+architecture.md
+*.md
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+deployment/
+
+# Backups
+*.backup
+*.bak

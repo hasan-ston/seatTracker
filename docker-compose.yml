@@ -1,0 +1,113 @@
+version: '3.9'
+
+services:
+  # Flask web application
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: seattracker_web
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - DB_PATH=/app/database/courses.db
+      - SECRET_KEY=${SECRET_KEY:-dev-secret-key-change-in-production}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - MOSAIC_USERNAME=${MOSAIC_USERNAME}
+      - MOSAIC_PASSWORD=${MOSAIC_PASSWORD}
+      - EMAIL_FROM=${EMAIL_FROM}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER}
+    volumes:
+      - db_data:/app/database
+    networks:
+      - seattracker
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5001/status').read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
+  # Database initialization (runs once)
+  init:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: seattracker_init
+    environment:
+      - DB_PATH=/app/database/courses.db
+    volumes:
+      - db_data:/app/database
+    networks:
+      - seattracker
+    command: >
+      sh -c "
+        echo 'Running database initialization and migrations...';
+        python database/init_db.py;
+        python database/migrate.py;
+        if [ -f subjects.json ]; then
+          echo 'Loading subjects...';
+          python load_subjects_to_db.py;
+        fi
+      "
+
+  # Course scraper (runs continuously)
+  scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: seattracker_scraper
+    restart: unless-stopped
+    environment:
+      - DB_PATH=/app/database/courses.db
+      - MOSAIC_USERNAME=${MOSAIC_USERNAME}
+      - MOSAIC_PASSWORD=${MOSAIC_PASSWORD}
+      - EMAIL_FROM=${EMAIL_FROM}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER}
+    volumes:
+      - db_data:/app/database
+    networks:
+      - seattracker
+    command: ["python", "-u", "scraper/scraper_loop.py", "--continuous", "5"]
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: seattracker_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx_cache:/var/cache/nginx
+    networks:
+      - seattracker
+    depends_on:
+      - web
+    profiles:
+      - production
+
+networks:
+  seattracker:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
+  nginx_cache:
+    driver: local

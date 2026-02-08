@@ -7,6 +7,7 @@ import os
 
 DB_PATH = os.getenv("DB_PATH", "database/courses.db")
 
+
 def init_database():
     print("Creating database schema...")
 
@@ -18,6 +19,8 @@ def init_database():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT UNIQUE NOT NULL,
             phone TEXT,
+            password_hash TEXT,
+            role TEXT DEFAULT 'user',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
