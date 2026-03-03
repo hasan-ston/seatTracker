@@ -175,6 +175,8 @@ def check_course_status(subject, course_number, term, browser=None, page=None):
             args=['--no-sandbox', '--disable-setuid-sandbox']
         )
         page = browser.new_page()
+        # Global safety net: no single Playwright action blocks longer than 20s
+        page.set_default_timeout(20000)
         login_to_mosaic(page)
         close_browser = True
 

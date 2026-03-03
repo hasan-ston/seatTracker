@@ -48,16 +48,17 @@ def send_notification(user_email, user_phone, course_info, status):
             send_sms(user_phone, message)
 
 
-def scrape_all_courses(browser=None, page=None):
+def scrape_all_courses(playwright=None, browser=None, page=None):
     """
     Main scraping function - checks all active course watches
 
     Args:
+        playwright: Optional existing Playwright instance (for reuse)
         browser: Optional existing browser instance (for reuse)
         page: Optional existing page instance (for reuse)
 
     Returns:
-        tuple: (browser, page) for reuse in next iteration
+        tuple: (playwright, browser, page) for reuse in next iteration
     """
     print("\n" + "=" * 70)
     print(f"Starting scraper run at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -68,19 +69,21 @@ def scrape_all_courses(browser=None, page=None):
     if not watches:
         print("\nNo active course watches found in database")
         print("   Add some watches first!")
-        return browser, page
+        return playwright, browser, page
 
     print(f"\nFound {len(watches)} active course watch(es)")
 
     # Only create browser if not provided
     if browser is None:
         print("\nLaunching browser...")
-        p = sync_playwright().start()
-        browser = p.chromium.launch(
+        playwright = sync_playwright().start()
+        browser = playwright.chromium.launch(
             headless=True,
             args=['--no-sandbox', '--disable-setuid-sandbox']
         )
         page = browser.new_page()
+        # Global safety net: no single Playwright action blocks longer than 20s
+        page.set_default_timeout(20000)
 
         print("Logging in to Mosaic...")
         try:
@@ -88,8 +91,8 @@ def scrape_all_courses(browser=None, page=None):
             print("Logged in successfully")
         except Exception as e:
             print(f"Login failed: {e}")
-            browser.close()
-            return None, None
+            playwright.stop()
+            return None, None, None
     else:
         print("\nReusing existing browser session...")
 
@@ -153,7 +156,7 @@ def scrape_all_courses(browser=None, page=None):
     print(f"Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 70)
 
-    return browser, page
+    return playwright, browser, page
 
 
 def run_continuous(interval_minutes=5):
@@ -167,6 +170,7 @@ def run_continuous(interval_minutes=5):
     print("   Browser will restart every 2880 checks (~12 hours) to prevent memory buildup")
     print("   Press Ctrl+C to stop")
 
+    playwright = None
     browser = None
     page = None
     check_count = 0
@@ -177,28 +181,43 @@ def run_continuous(interval_minutes=5):
                 # Restart browser every 2880 checks (~12 hours at 15 sec intervals)
                 if check_count > 0 and check_count % 2880 == 0:
                     print(f"\n[MEMORY MANAGEMENT] Restarting browser after {check_count} checks...")
-                    if browser is not None:
-                        browser.close()
+                    if playwright is not None:
+                        playwright.stop()
+                    playwright = None
                     browser = None
                     page = None
 
-                browser, page = scrape_all_courses(browser, page)
+                playwright, browser, page = scrape_all_courses(playwright, browser, page)
                 check_count += 1
+
+                # If scrape_all_courses returned None (login/browser failure), reset and retry
+                if browser is None:
+                    print(f"   Browser unavailable — retrying in {interval_minutes} minutes...")
+                    playwright = None
 
                 print(f"\nWaiting {interval_minutes} minutes until next check...")
                 time.sleep(interval_minutes * 60)
             except Exception as e:
-                print(f"\nUnexpected error: {e}")
+                print(f"\nUnexpected error in run loop: {e}")
+                # Reset browser state so next iteration starts fresh
+                if playwright is not None:
+                    try:
+                        playwright.stop()
+                    except Exception:
+                        pass
+                playwright = None
+                browser = None
+                page = None
                 print(f"   Retrying in {interval_minutes} minutes...")
                 time.sleep(interval_minutes * 60)
     except KeyboardInterrupt:
         print("\n\nStopping scraper...")
     finally:
-        # Clean up browser when stopping
-        if browser is not None:
-            print("Closing browser...")
-            browser.close()
-            print("Browser closed")
+        # Clean up playwright (stops browser + Node.js driver) when stopping
+        if playwright is not None:
+            print("Stopping playwright...")
+            playwright.stop()
+            print("Playwright stopped")
 
 
 if __name__ == "__main__":
@@ -206,7 +225,7 @@ if __name__ == "__main__":
         interval = float(sys.argv[2]) if len(sys.argv) > 2 else 5
         run_continuous(interval)
     else:
-        browser, page = scrape_all_courses()
-        if browser is not None:
-            print("\nClosing browser...")
-            browser.close()
+        pw, browser, page = scrape_all_courses()
+        if pw is not None:
+            print("\nStopping playwright...")
+            pw.stop()
