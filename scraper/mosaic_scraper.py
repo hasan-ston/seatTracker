@@ -29,13 +29,36 @@ def search_for_course(page, subject, course_number, term):
 
     term_dropdown = '#CLASS_SRCH_WRK2_STRM\\$35\\$'
 
-    page.select_option(term_dropdown, label=term)
-    options = page.locator(f'{term_dropdown} option').all_inner_texts()
-
-    for i, option_text in enumerate(options):
-        if term in option_text or "2026" in option_text and "Winter" in option_text:
-            page.select_option(term_dropdown, index=i)
+    # Limit Playwright's internal retry behavior by attempting selection ourselves
+    # Try selecting by label up to `max_attempts` times with a short timeout.
+    max_attempts = 2
+    selected = False
+    for attempt in range(1, max_attempts + 1):
+        try:
+            page.select_option(term_dropdown, label=term, timeout=3000)
+            selected = True
             break
+        except Exception:
+            if attempt < max_attempts:
+                time.sleep(0.5)
+            else:
+                # Last attempt failed — try a quick index-based fallback (short timeout)
+                try:
+                    options = page.locator(f'{term_dropdown} option').all_inner_texts()
+                except Exception:
+                    options = []
+
+                for i, option_text in enumerate(options):
+                    if term in option_text or ("2026" in option_text and "Winter" in option_text):
+                        try:
+                            page.select_option(term_dropdown, index=i, timeout=2000)
+                            selected = True
+                        except Exception:
+                            selected = False
+                        break
+
+    if not selected:
+        print("   Failed to select term after limited attempts — continuing but results may be unreliable")
 
     page.fill('#SSR_CLSRCH_WRK_SUBJECT\\$0', subject)
     page.fill('#SSR_CLSRCH_WRK_CATALOG_NBR\\$1', course_number)
